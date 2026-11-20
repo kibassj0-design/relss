@@ -1,0 +1,86 @@
+{
+ "tag": "قصة حقيقية",
+ "accent": "#6EC8E0",
+ "accent2": "#0a3a4a",
+ "bg": "#0a0907",
+ "seed": 71,
+ "scenes": [
+  {
+   "type": "hook",
+   "img": "images/07-mary-celeste/1.jpg",
+   "lines": [
+    "سفينة بنص البحر...",
+    "و*ماكو بيها أحد*"
+   ],
+   "flash": true,
+   "q": "stormy sea Atlantic ocean"
+  },
+  {
+   "type": "big",
+   "big": "1872",
+   "label": "المحيط الأطلسي",
+   "lines": [
+    "سفينة لكوا",
+    "*ماري سيليست* ماشية وحدها"
+   ]
+  },
+  {
+   "type": "text",
+   "img": "images/07-mary-celeste/2.jpg",
+   "imgStyle": "card",
+   "tilt": 3,
+   "lines": [
+    "صعدوا عليها...",
+    "*فارغة*"
+   ],
+   "q": "Mary Celeste painting"
+  },
+  {
+   "type": "emoji",
+   "emoji": "🍞",
+   "lines": [
+    "الأكل موجود *يكفي أشهر*",
+    "والحمولة *سالمة*"
+   ]
+  },
+  {
+   "type": "big",
+   "big": "0",
+   "count": 10,
+   "label": "أشخاص",
+   "lines": [
+    "القبطان ومرته وبنته والبحارة",
+    "*كلهم اختفوا*"
+   ],
+   "shake": true
+  },
+  {
+   "type": "emoji",
+   "emoji": "🛶",
+   "lines": [
+    "بس *قارب النجاة*",
+    "مو موجود"
+   ]
+  },
+  {
+   "type": "text",
+   "img": "images/07-mary-celeste/3.jpg",
+   "lines": [
+    "ومن ذاك اليوم...",
+    "*محد شافهم*"
+   ],
+   "q": "brigantine sailing ship 19th century"
+  },
+  {
+   "type": "cta",
+   "lines": [
+    "شنو تتوقع صار؟",
+    "اكتب *نظريتك*",
+    "بالتعليقات 👇"
+   ]
+  }
+ ],
+ "title": "سفينة لكوها بالبحر بدون ولا إنسان",
+ "caption": "سفينة ماري سيليست لكوها ماشية وحدها بنص المحيط… والأكل موجود والناس مختفين 😨\nشنو تتوقع صار؟ 👇\n\n#قصص #قصص_حقيقية #معلومات #حقائق #غموض #العراق #عراقي #explore #fyp #shorts",
+ "brand": ""
+}

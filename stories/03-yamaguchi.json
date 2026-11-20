@@ -1,0 +1,94 @@
+{
+ "tag": "قصة حقيقية",
+ "accent": "#FF7A45",
+ "accent2": "#5a1a0a",
+ "bg": "#0a0907",
+ "seed": 31,
+ "scenes": [
+  {
+   "type": "hook",
+   "img": "images/03-yamaguchi/1.jpg",
+   "lines": [
+    "رجال نجا من",
+    "*قنبلتين ذريتين*!"
+   ],
+   "flash": true,
+   "q": "Atomic bombing of Hiroshima mushroom cloud"
+  },
+  {
+   "type": "text",
+   "imgStyle": "card",
+   "tilt": 3,
+   "lines": [
+    "اسمه *تسوتومو ياماگوتشي*",
+    "مهندس ياباني"
+   ],
+   "q": "Tsutomu Yamaguchi",
+   "img": "images/03-yamaguchi/2.jpg"
+  },
+  {
+   "type": "big",
+   "big": "6 آب",
+   "label": "1945 • هيروشيما",
+   "lines": [
+    "كان بسفرة شغل",
+    "وانفجرت *أول قنبلة ذرية*"
+   ],
+   "flash": true
+  },
+  {
+   "type": "emoji",
+   "emoji": "🔥",
+   "lines": [
+    "انحرك وانجرح...",
+    "بس *ظل عايش*"
+   ]
+  },
+  {
+   "type": "text",
+   "lines": [
+    "رجع لمدينته",
+    "اللي اسمها *ناگازاكي*"
+   ]
+  },
+  {
+   "type": "big",
+   "big": "9 آب",
+   "label": "1945 • ناگازاكي",
+   "lines": [
+    "وهو يحچي لمديره عن القنبلة...",
+    "انفجرت *الثانية*!"
+   ],
+   "flash": true,
+   "shake": true
+  },
+  {
+   "type": "text",
+   "img": "images/03-yamaguchi/3.jpg",
+   "lines": [
+    "ونجا *مرة ثانية*"
+   ],
+   "q": "Nagasaki 1945 ruins"
+  },
+  {
+   "type": "big",
+   "big": "0",
+   "count": 93,
+   "label": "سنة",
+   "lines": [
+    "عاش لحد عمر *٩٣* سنة"
+   ]
+  },
+  {
+   "type": "cta",
+   "lines": [
+    "هذا *أحظ* إنسان",
+    "لو أتعس إنسان؟",
+    "اكتبلي رأيك"
+   ]
+  }
+ ],
+ "title": "نجا من قنبلتين ذريتين!",
+ "caption": "رجال نجا من قنبلة هيروشيما… ورجع لمدينته ناگازاكي وانضربت هي هم 😳\nأحظ إنسان لو أتعس إنسان؟ 👇\n\n#قصص #قصص_حقيقية #معلومات #حقائق #غموض #العراق #عراقي #explore #fyp #shorts",
+ "brand": ""
+}

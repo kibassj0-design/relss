@@ -1,0 +1,94 @@
+{
+ "tag": "قصة حقيقية",
+ "accent": "#E8B04A",
+ "accent2": "#4a2a0a",
+ "bg": "#0a0907",
+ "seed": 101,
+ "scenes": [
+  {
+   "type": "hook",
+   "img": "images/10-gage/1.jpg",
+   "lines": [
+    "*قضيب حديد* دخل براسه...",
+    "وظل عايش!"
+   ],
+   "flash": true,
+   "q": "19th century railroad construction"
+  },
+  {
+   "type": "big",
+   "big": "1848",
+   "label": "أمريكا • سكة القطار",
+   "lines": [
+    "عامل اسمه *فينياس گيج*"
+   ]
+  },
+  {
+   "type": "emoji",
+   "emoji": "💥",
+   "lines": [
+    "صار *انفجار* بالشغل"
+   ],
+   "shake": true
+  },
+  {
+   "type": "big",
+   "big": "0",
+   "count": 6,
+   "suffix": " كغم",
+   "label": "تقريباً",
+   "lines": [
+    "قضيب حديد *أطول من متر*",
+    "دخل من خده وطلع من راسه"
+   ],
+   "flash": true
+  },
+  {
+   "type": "text",
+   "img": "images/10-gage/2.jpg",
+   "imgStyle": "card",
+   "tilt": -3,
+   "lines": [
+    "والغريبة...",
+    "بقى *واعي ويحچي*!"
+   ],
+   "q": "Phineas Gage daguerreotype"
+  },
+  {
+   "type": "text",
+   "lines": [
+    "بس بعدها",
+    "*طبعه تغيّر* بالكامل"
+   ]
+  },
+  {
+   "type": "text",
+   "img": "images/10-gage/3.jpg",
+   "lines": [
+    "وصارت قصته من أهم القصص",
+    "بعلم *الدماغ*"
+   ],
+   "q": "Phineas Gage skull"
+  },
+  {
+   "type": "big",
+   "big": "0",
+   "count": 12,
+   "label": "سنة",
+   "lines": [
+    "وعاش بعدها *١٢* سنة"
+   ]
+  },
+  {
+   "type": "cta",
+   "lines": [
+    "تعرف قصة",
+    "*أغرب* من هاي؟",
+    "اكتبلي 👇"
+   ]
+  }
+ ],
+ "title": "قضيب حديد دخل براسه وظل عايش!",
+ "caption": "فينياس گيج: قضيب حديد أطول من متر دخل من خده وطلع من راسه… وظل يحچي 😳\nقصة حقيقية 👇\n\n#قصص #قصص_حقيقية #معلومات #حقائق #غموض #العراق #عراقي #explore #fyp #shorts",
+ "brand": ""
+}

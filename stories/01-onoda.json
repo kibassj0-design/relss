@@ -1,0 +1,123 @@
+{
+ "tag": "قصة حقيقية",
+ "accent": "#E8B04A",
+ "accent2": "#7a2e1a",
+ "bg": "#0c0a07",
+ "seed": 11,
+ "scenes": [
+  {
+   "type": "hook",
+   "lines": [
+    "تخيّل تظل *تقاتل* بحرب",
+    "خالصة من *٢٩* سنة..."
+   ],
+   "flash": true,
+   "q": "Lubang Island jungle",
+   "img": "images/01-onoda/1.jpg"
+  },
+  {
+   "type": "text",
+   "lines": [
+    "...وإنت *ما تدري!*"
+   ],
+   "shake": true
+  },
+  {
+   "type": "big",
+   "big": "1944",
+   "label": "اليابان • الحرب العالمية الثانية",
+   "lines": [
+    "دزّوا ضابط اسمه *هيرو أونودا*",
+    "لجزيرة بالفلبين"
+   ]
+  },
+  {
+   "type": "text",
+   "imgStyle": "card",
+   "tilt": -4,
+   "lines": [
+    "هذا هو *أونودا*"
+   ],
+   "q": "Hiroo Onoda young",
+   "img": "images/01-onoda/2.jpg",
+   "file": "File:Hiroo Onoda young.jpg"
+  },
+  {
+   "type": "emoji",
+   "emoji": "🪖",
+   "lines": [
+    "والأمر كان واضح:",
+    "*لا تستسلم أبداً*"
+   ]
+  },
+  {
+   "type": "big",
+   "big": "1945",
+   "label": "الحرب خلصت",
+   "lines": [
+    "بس هو... *ما صدّق*"
+   ],
+   "flash": true
+  },
+  {
+   "type": "text",
+   "img": "images/01-onoda/3.jpg",
+   "pan": -1,
+   "lines": [
+    "رمولَه أوراق من الطيارات",
+    "تكول: *الحرب خلصت!*"
+   ],
+   "q": "Leaflet bombing World War II",
+   "src": "commons"
+  },
+  {
+   "type": "text",
+   "lines": [
+    "كال: هاي *خدعة*",
+    "من العدو 🤨"
+   ]
+  },
+  {
+   "type": "text",
+   "img": "images/01-onoda/4.jpg",
+   "lines": [
+    "وظل بالغابة...",
+    "سنة ورا سنة"
+   ],
+   "q": "tropical rainforest Philippines"
+  },
+  {
+   "type": "big",
+   "big": "0",
+   "count": 29,
+   "label": "سنة كاملة",
+   "lines": [
+    "*٢٩* سنة وهو يقاتل وحده"
+   ],
+   "shake": true
+  },
+  {
+   "type": "text",
+   "img": "images/01-onoda/5.jpg",
+   "imgStyle": "card",
+   "tilt": 3,
+   "lines": [
+    "*1974*: جابوله الضابط القديم مالته",
+    "وأمره بنفسه يسلّم السلاح"
+   ],
+   "flash": true,
+   "q": "Onoda surrender 1974 Marcos"
+  },
+  {
+   "type": "cta",
+   "lines": [
+    "إنت لو مكانه...",
+    "چان *صدّكت* لو لا؟",
+    "اكتبلي بالتعليقات"
+   ]
+  }
+ ],
+ "title": "ظل يقاتل ٢٩ سنة بحرب خلصت 😳",
+ "caption": "ضابط ياباني ظل يقاتل بالغابة ٢٩ سنة لأن ما صدّق إن الحرب خلصت 😳\nقصة حقيقية… إنت چان صدّكت؟ 👇\n\n#قصص #قصص_حقيقية #معلومات #حقائق #غموض #العراق #عراقي #explore #fyp #shorts",
+ "brand": ""
+}
