@@ -13,7 +13,9 @@
     "*اختفت* من الرادار"
    ],
    "flash": true,
-   "q": "Boeing 777 Malaysia Airlines 9M-MRO"
+   "q": "Boeing 777 Malaysia Airlines 9M-MRO",
+   "src": "openverse",
+   "q_en": "Boeing 777 Malaysia Airlines"
   },
   {
    "type": "big",
@@ -40,7 +42,9 @@
     "الأقمار الصناعية بيّنت إنها",
     "*لفّت* وكملت ساعات"
    ],
-   "q": "airport radar screen"
+   "q": "airport radar screen",
+   "src": "openverse",
+   "q_en": "airplane cockpit night"
   },
   {
    "type": "text",
@@ -58,7 +62,9 @@
     "لكوا *قطع* منها",
     "على سواحل أفريقيا"
    ],
-   "q": "MH370 flaperon Reunion"
+   "q": "MH370 flaperon Reunion",
+   "src": "openverse",
+   "q_en": "open ocean waves aerial"
   },
   {
    "type": "text",

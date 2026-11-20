@@ -13,7 +13,9 @@
     "وظل عايش!"
    ],
    "flash": true,
-   "q": "19th century railroad construction"
+   "q": "19th century railroad construction",
+   "src": "openverse",
+   "q_en": "old railway track"
   },
   {
    "type": "big",
@@ -52,7 +54,9 @@
     "والغريبة...",
     "بقى *واعي ويحچي*!"
    ],
-   "q": "Phineas Gage daguerreotype"
+   "q": "Phineas Gage daguerreotype",
+   "src": "openverse",
+   "q_en": "human skull"
   },
   {
    "type": "text",
@@ -68,7 +72,9 @@
     "وصارت قصته من أهم القصص",
     "بعلم *الدماغ*"
    ],
-   "q": "Phineas Gage skull"
+   "q": "Phineas Gage skull",
+   "src": "openverse",
+   "q_en": "brain anatomy illustration"
   },
   {
    "type": "big",

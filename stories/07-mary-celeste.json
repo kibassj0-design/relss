@@ -13,7 +13,9 @@
     "و*ماكو بيها أحد*"
    ],
    "flash": true,
-   "q": "stormy sea Atlantic ocean"
+   "q": "stormy sea Atlantic ocean",
+   "src": "openverse",
+   "q_en": "stormy sea waves"
   },
   {
    "type": "big",
@@ -33,7 +35,9 @@
     "صعدوا عليها...",
     "*فارغة*"
    ],
-   "q": "Mary Celeste painting"
+   "q": "Mary Celeste painting",
+   "src": "openverse",
+   "q_en": "ghost ship abandoned"
   },
   {
    "type": "emoji",
@@ -69,7 +73,9 @@
     "ومن ذاك اليوم...",
     "*محد شافهم*"
    ],
-   "q": "brigantine sailing ship 19th century"
+   "q": "brigantine sailing ship 19th century",
+   "src": "openverse",
+   "q_en": "brigantine sailing ship"
   },
   {
    "type": "cta",

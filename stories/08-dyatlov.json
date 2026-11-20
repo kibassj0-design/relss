@@ -13,7 +13,9 @@
     "و*محد يعرف* شلون"
    ],
    "flash": true,
-   "q": "Ural Mountains winter night"
+   "q": "Ural Mountains winter night",
+   "src": "openverse",
+   "q_en": "snowy mountain ridge night"
   },
   {
    "type": "big",
@@ -33,7 +35,9 @@
     "*مشكوكة من الداخل!*"
    ],
    "shake": true,
-   "q": "Dyatlov Pass tent"
+   "q": "Dyatlov Pass tent",
+   "src": "openverse",
+   "q_en": "camping tent snow winter"
   },
   {
    "type": "emoji",
@@ -64,7 +68,9 @@
     "دراسة جديدة تكول:",
     "يمكن *انهيار ثلجي*"
    ],
-   "q": "Dyatlov group 1959"
+   "q": "Dyatlov group 1959",
+   "src": "openverse",
+   "q_en": "frozen forest winter"
   },
   {
    "type": "text",
