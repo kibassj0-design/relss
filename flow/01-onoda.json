@@ -1,0 +1,9 @@
+{
+ "story": "01-onoda",
+ "settings": "Veo, portrait 9:16, 8 seconds, no text, no subtitles, no logos, cinematic, realistic 1970s/1940s film look",
+ "clips": [
+  {"scene": 0, "file": "s0.mp4", "prompt": "Cinematic slow push-in through dense tropical jungle at dawn, mist between giant leaves, a lone Japanese WWII soldier in a torn faded uniform crouches with an old rifle, watching silently, film grain, moody golden light, no text"},
+  {"scene": 6, "file": "s6.mp4", "prompt": "1940s propeller plane flying low over a thick jungle canopy, hundreds of paper leaflets fluttering down through the trees in slow motion, warm sunlight, vintage film look, no text"},
+  {"scene": 8, "file": "s8.mp4", "prompt": "Time-lapse feeling in a rainy jungle: the same small hidden camp under palm leaves through rain, sun and night, a lone soldier sharpening a knife by a tiny fire, cinematic, no text"}
+ ]
+}
