@@ -1,4 +1,4 @@
-// usage: node render.js stories/01-onoda.json [--preview]
+// usage: node render.js stories/01-onoda.json [--preview] [--first N]
 // Renders a story JSON into a 1080x1920 MP4 (30fps) with an ambient sound bed.
 const { chromium } = require('playwright');
 const { spawn } = require('child_process');
@@ -8,7 +8,9 @@ const FPS = 30;
 const file = process.argv[2];
 const preview = process.argv.includes('--preview');
 const story = JSON.parse(fs.readFileSync(file, 'utf8'));
-const name = path.basename(file, '.json');
+const only = process.argv.includes('--first') ? +process.argv[process.argv.indexOf('--first') + 1] : 0;
+if (only) story.scenes = story.scenes.slice(0, only);   // quick sample: only the first N scenes
+const name = path.basename(file, '.json') + (only ? `-first${only}` : '');
 for (const sc of story.scenes) if (sc.img && !fs.existsSync(path.join(__dirname, sc.img))) { console.log('missing image, motion only:', sc.img); delete sc.img; }
 const outDir = path.join(__dirname, 'out');
 fs.mkdirSync(outDir, { recursive: true });
@@ -48,7 +50,7 @@ fs.mkdirSync(outDir, { recursive: true });
   await browser.close();
 
   const out = path.join(outDir, `${name}.mp4`);
-  require('./audio').addAudio(silent, total, cuts, out);
+  require('./audio').addAudio(silent, total, cuts, out, story.scenes);
   fs.unlinkSync(silent);
   console.log(`\r${name}: done ${total.toFixed(1)}s -> ${out}`);
 })();

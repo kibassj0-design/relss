@@ -73,6 +73,7 @@ const scenes = S.scenes.map(sc=>{
   const words = (sc.lines||[]).join(' ').split(/\s+/).filter(Boolean).length;
   const base = sc.type==='big'||sc.type==='emoji' ? 1.2 : 0.4;
   sc.dur = sc.dur || Math.max(2.8, base + words*WORD + 1.9);
+  sc.gap = sc.wordGap || WORD;              // narrated scenes spread words over the voice
   return sc;
 });
 let acc=0; for(const sc of scenes){sc.start=acc; acc+=sc.dur;}
@@ -152,9 +153,9 @@ function animScene(sc,t){
   if(!vis) return;
   const exitShift = (1-outA)*-60;
   el.style.transform = `translateY(${(1-inA)*50+exitShift}px) scale(${1+(1-outA)*.04})`;
-  const wStart = (sc.type==='big'||sc.type==='emoji') ? 1.0 : 0.25;
+  const wStart = sc.wordStart ?? ((sc.type==='big'||sc.type==='emoji') ? 1.0 : 0.25);
   sc.words.forEach((w,i)=>{
-    const p = prog(lt, wStart+i*WORD, .32);
+    const p = prog(lt, wStart+i*sc.gap, .32);
     const e = ease.back(p);
     w.style.opacity = clamp(p*1.6);
     w.style.transform = `translateY(${(1-e)*40}px) scale(${.6+.4*e})`;

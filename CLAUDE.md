@@ -33,6 +33,10 @@ everything. Talk to the owner in **Iraqi Arabic**, short and friendly.
    - `python3 fetch_images.py stories/<name>.json` (Wikimedia rate-limits: it waits; be patient).
      **Look at every downloaded image** (Read the jpg). Delete wrong/ugly ones, change `q`
      or set `file`, re-run. A slot with no file renders as motion only.
+   - Narration: every scene has `say` = what the narrator speaks (clear Arabic, fuller than the
+     on-screen `lines`). `python3 narrate.py stories/<name>.json` makes the voice (Gemini TTS,
+     key injected by the proxy) and sets each scene's `dur`/`wordGap` to follow the voice.
+     Listen to one scene first (`--scene 0`, then `node render.js ... --first 1`).
    - `node render.js stories/<name>.json --preview` → look at `out/<name>-p*.jpg`, fix
      overlaps or long lines, then `node render.js stories/<name>.json` (~5 min).
    - Title + caption: `title` = short hook; `caption` = 2 lines in Iraqi + a question for

@@ -17,7 +17,7 @@ async function timing(story) {
   return r;
 }
 
-function addAudio(video, total, cuts, out) {
+function addAudio(video, total, cuts, out, scenes = []) {
   const T = total.toFixed(2);
   // A-minor pad with harmonics (audible on phones), slowly breathing
   const pad = `aevalsrc='(0.5+0.5*sin(2*PI*0.08*t))*(` +
@@ -36,7 +36,19 @@ function addAudio(video, total, cuts, out) {
     filt += `[${3 + i}]highpass=f=60,adelay=${ms}|${ms},volume=0.7[h${i}];`;
     hits.push(`[h${i}]`);
   });
-  filt += `[pad][tick]${hits.join('')}amix=inputs=${2 + hits.length}:normalize=0,` +
+  // narration: each scene's voice starts at its cut; the music ducks under it
+  const voices = [];
+  scenes.forEach((sc, i) => {
+    if (!sc.voice || !fs.existsSync(path.join(__dirname, sc.voice))) return;
+    const k = 3 + cuts.length + voices.length;
+    inputs.push('-i', path.join(__dirname, sc.voice));
+    const ms = Math.round((cuts[i] + (sc.voiceLead || 0)) * 1000);
+    filt += `[${k}]aresample=44100,adelay=${ms}|${ms},volume=2.2[v${voices.length}];`;
+    voices.push(`[v${voices.length}]`);
+  });
+  const bedVol = voices.length ? 0.35 : 1;
+  filt += `[pad][tick]${hits.join('')}amix=inputs=${2 + hits.length}:normalize=0,volume=${bedVol}[bed];`;
+  filt += (voices.length ? `[bed]${voices.join('')}amix=inputs=${1 + voices.length}:normalize=0,` : `[bed]anull,`) +
     `afade=t=in:d=0.6,afade=t=out:st=${(total - 1.5).toFixed(2)}:d=1.5,` +
     `loudnorm=I=-14:TP=-1.5:LRA=11,aformat=channel_layouts=stereo[aout]`;
   const tmp = out + '.tmp.mp4';
@@ -55,7 +67,7 @@ if (require.main === module) {
     const story = JSON.parse(fs.readFileSync(file, 'utf8'));
     const video = process.argv[3] || path.join(__dirname, 'out', `${name}.mp4`);
     const { total, cuts } = await timing(story);
-    addAudio(video, total, cuts, video);
+    addAudio(video, total, cuts, video, story.scenes);
     console.log(`${name}: sound done -> ${video}`);
   })();
 }

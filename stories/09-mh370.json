@@ -15,7 +15,8 @@
    "flash": true,
    "q": "Boeing 777 Malaysia Airlines 9M-MRO",
    "src": "openverse",
-   "q_en": "Boeing 777 Malaysia Airlines"
+   "q_en": "Boeing 777 Malaysia Airlines",
+   "say": "طائرة فيها مئتان وتسعة وثلاثون شخصاً… اختفت من الرادار."
   },
   {
    "type": "big",
@@ -24,7 +25,8 @@
    "lines": [
     "طلعت من *كوالالمبور*",
     "رايحة لـ*بكين*"
-   ]
+   ],
+   "say": "عام ألفين وأربعة عشر، أقلعت من كوالالمبور… متجهة إلى بكين."
   },
   {
    "type": "emoji",
@@ -33,7 +35,8 @@
     "وبنص الليل...",
     "*انقطع الاتصال*"
    ],
-   "shake": true
+   "shake": true,
+   "say": "وفي منتصف الليل… انقطع الاتصال بها."
   },
   {
    "type": "text",
@@ -44,14 +47,16 @@
    ],
    "q": "airport radar screen",
    "src": "openverse",
-   "q_en": "airplane cockpit night"
+   "q_en": "airplane cockpit night",
+   "say": "الأقمار الصناعية أظهرت أنها استدارت… وواصلت الطيران لساعات."
   },
   {
    "type": "text",
    "lines": [
     "بدا أكبر *بحث*",
     "بتاريخ الطيران"
-   ]
+   ],
+   "say": "وبدأ أكبر بحث في تاريخ الطيران."
   },
   {
    "type": "text",
@@ -64,14 +69,16 @@
    ],
    "q": "MH370 flaperon Reunion",
    "src": "openverse",
-   "q_en": "open ocean waves aerial"
+   "q_en": "open ocean waves aerial",
+   "say": "بعد ذلك عثروا على قطع منها… على سواحل أفريقيا."
   },
   {
    "type": "text",
    "lines": [
     "بس الطيارة نفسها...",
     "*لسنين ما لكوها*"
-   ]
+   ],
+   "say": "لكن الطائرة نفسها… لم يجدوها لسنوات."
   },
   {
    "type": "cta",
@@ -79,7 +86,8 @@
     "شنو تتوقع صار؟",
     "اكتبلي",
     "بالتعليقات 👇"
-   ]
+   ],
+   "say": "برأيك ماذا حدث؟ اكتب لي في التعليقات."
   }
  ],
  "title": "طيارة بيها ٢٣٩ راكب اختفت!",
