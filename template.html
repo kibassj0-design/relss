@@ -43,6 +43,22 @@ html,body{width:1080px;height:1920px;overflow:hidden;background:#000}
 .cinema .cta-arrow{font-size:90px}
 .cinema .sub{display:none;max-width:900px}
 .cinema #parts{display:none}
+
+/* ---- channel identity: 5ssj5 ---- */
+#idframe{position:absolute;inset:0;pointer-events:none}
+#idframe i{position:absolute;width:70px;height:70px;border-color:rgba(242,176,53,.85);border-style:solid;border-width:0}
+#idframe .c1{top:110px;right:40px;border-top-width:4px;border-right-width:4px}
+#idframe .c2{top:110px;left:40px;border-top-width:4px;border-left-width:4px}
+#idframe .c3{bottom:200px;right:40px;border-bottom-width:4px;border-right-width:4px}
+#idframe .c4{bottom:200px;left:40px;border-bottom-width:4px;border-left-width:4px}
+#badge{display:flex;align-items:center;gap:16px;direction:ltr;padding:10px 26px 10px 12px;border-radius:999px;background:rgba(0,0,0,.55);border:2px solid rgba(242,176,53,.7);box-shadow:0 8px 30px rgba(0,0,0,.5)}
+#badge .logo{width:58px;height:58px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffd77a,#F2B035 45%,#8a5a12);display:flex;align-items:center;justify-content:center;font-family:"Lalezar";font-size:30px;color:#120c02;box-shadow:0 0 22px rgba(242,176,53,.6)}
+#badge .nm{font-family:"Lalezar";font-size:40px;color:#F4EFE4;letter-spacing:.04em}
+#badge .tg{font-weight:800;font-size:26px;color:#F2B035;direction:rtl;border-left:2px solid rgba(242,176,53,.5);padding-left:14px}
+#endcard{position:absolute;left:0;right:0;top:640px;display:flex;flex-direction:column;align-items:center;gap:26px;opacity:0}
+#endcard .logo{width:230px;height:230px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffd77a,#F2B035 45%,#8a5a12);display:flex;align-items:center;justify-content:center;font-family:"Lalezar";font-size:110px;color:#120c02;box-shadow:0 0 90px rgba(242,176,53,.55)}
+#endcard .h{font-family:"Lalezar";font-size:92px;color:#F4EFE4;direction:ltr;text-shadow:0 8px 30px #000}
+#endcard .f{font-weight:900;font-size:58px;color:#F2B035;text-shadow:0 6px 24px #000}
 /* ---- dynamic: narration + beats that change every <=2.5 s ---- */
 .dyn #stage{top:330px;height:1000px}
 #subs{position:absolute;left:60px;right:60px;bottom:260px;height:260px;display:flex;align-items:flex-end;justify-content:center;text-align:center}
@@ -66,13 +82,19 @@ html,body{width:1080px;height:1920px;overflow:hidden;background:#000}
   <div id="stage"></div>
   <div id="subs"></div>
   <div id="brand"></div>
+  <div id="idframe"><i class="c1"></i><i class="c2"></i><i class="c3"></i><i class="c4"></i></div>
+  <div id="endcard"><div class="logo">5S</div><div class="h">@5ssj5</div><div class="f">تابعني حتى ما تفوتك قصة</div></div>
   <div id="flash"></div>
 </div>
 <script>
 const S = window.STORY;
 document.documentElement.style.setProperty('--accent', S.accent || '#E8B04A');
 document.getElementById('tag').textContent = S.tag || 'قصة حقيقية';
-document.getElementById('brand').textContent = S.brand || '';
+document.getElementById('brand').textContent = '';
+const BRAND = S.brand || '5ssj5';
+if (!S.keepAccent) { S.accent = '#F2B035'; document.documentElement.style.setProperty('--accent', S.accent); }
+document.getElementById('tag').outerHTML = `<div id="badge"><div class="logo">5S</div><div class="nm">${BRAND}</div><div class="tg">${S.tag || 'قصة حقيقية'}</div></div>`;
+document.querySelector('#endcard .h').textContent = '@' + BRAND;
 
 // ---------- deterministic randomness ----------
 function rng(seed){return()=>{seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
@@ -348,6 +370,13 @@ window.seek = function(t){
   let f=0;
   if (DYN) f = animDyn(t); else for(const sc of scenes) animScene(sc,t);
   document.querySelector('#prog i').style.width = (clamp(t/TOTAL)*100)+'%';
+  { const last = scenes[scenes.length - 1], lt = t - last.start, p = prog(lt, .2, .6), e = ease.back(p);
+    const ec = document.getElementById('endcard'); const on = last.type === 'cta' && lt > 0;
+    ec.style.opacity = on ? clamp(p * 2) : 0; ec.style.transform = `scale(${.5 + .5 * e}) translateY(${Math.sin(lt * 3) * 8}px)`;
+    if (on) for (const b of beats) if (b.sc === last && b.el) b.el.style.opacity = 0;
+    if (on) for (const b of beats) if (b.sc === last && b.d) b.d.style.opacity = Math.min(+b.d.style.opacity || 0, .35);
+    const bd = document.getElementById('badge'); const bp = prog(t, 0, .6);
+    bd.style.transform = `scale(${.7 + .3 * ease.back(bp)})`; bd.style.opacity = clamp(bp * 2); }
   // flash on scenes flagged
   for(const sc of scenes){ if(sc.flash){ const lt=t-sc.start; if(lt>=0&&lt<.35) f=Math.max(f,(1-lt/.35)*.55);} }
   document.getElementById('flash').style.opacity=f;
