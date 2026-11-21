@@ -7,7 +7,7 @@ const fs = require('fs'), path = require('path');
 const FPS = 30;
 const file = process.argv[2];
 const preview = process.argv.includes('--preview');
-const story = JSON.parse(fs.readFileSync(file, 'utf8'));
+const story = require('./icons').resolve(JSON.parse(fs.readFileSync(file, 'utf8')));
 const only = process.argv.includes('--first') ? +process.argv[process.argv.indexOf('--first') + 1] : 0;
 if (only) story.scenes = story.scenes.slice(0, only);   // quick sample: only the first N scenes
 const name = path.basename(file, '.json') + (only ? `-first${only}` : '');

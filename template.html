@@ -44,6 +44,18 @@ html,body{width:1080px;height:1920px;overflow:hidden;background:#000}
 .cinema .sub{display:none;max-width:900px}
 .cinema #parts{display:none}
 
+
+#leak{position:absolute;inset:0;pointer-events:none;opacity:0;mix-blend-mode:screen;background:radial-gradient(ellipse at 80% 20%,rgba(255,170,60,.95),rgba(255,90,20,.35) 35%,transparent 65%),radial-gradient(ellipse at 10% 90%,rgba(255,200,120,.5),transparent 55%)}
+.dyn .icon{width:430px;height:430px;color:var(--accent);filter:drop-shadow(0 0 40px rgba(242,176,53,.45)) drop-shadow(0 18px 30px rgba(0,0,0,.8))}
+.dyn .icon svg{width:100%;height:100%}
+.dyn .emoji{font-size:260px}
+.dyn .kw{font-family:"Lalezar","Cairo";font-size:120px;line-height:1.2;color:var(--accent);text-shadow:0 10px 40px rgba(0,0,0,.9)}
+.dyn .rv{will-change:clip-path}
+.dyn .big{text-shadow:0 0 50px rgba(242,176,53,.5),0 12px 40px rgba(0,0,0,.9)}
+#subs .sub{font-size:70px}
+#subs .cw{display:inline-block;color:#F4EFE4;margin:0 .13em}
+#subs .cw.on{color:var(--accent);transform:scale(1.1)}
+#subs .cw.past{color:#F4EFE4}
 /* ---- channel identity: 5ssj5 ---- */
 #idframe{position:absolute;inset:0;pointer-events:none}
 #idframe i{position:absolute;width:70px;height:70px;border-color:rgba(242,176,53,.85);border-style:solid;border-width:0}
@@ -178,111 +190,129 @@ for(const sc of scenes){
 
 
 // ================= DYNAMIC MODE =================
-// Narration + subtitles; the picture changes every <= BEAT seconds, but ONLY with things that
-// belong to what the narrator is saying in that scene: the scene's own photo (full / framed)
-// or the scene's own motion graphics (its number, emoji, keyword, and its "icons").
+// Narration with word-by-word captions; the picture changes every <= BEAT seconds, ONLY with
+// things that belong to what is said in that scene: its photos, its number, its icons
+// (gold line drawings / flags, "gi:name" / "flag:name" resolved by render.js) and keywords.
 const DYN = S.style === 'dynamic';
 const BEAT = 2.4;
 let beats = [];
 if (DYN) {
   const root = document.getElementById('root'); root.classList.add('dyn');
   const photos = document.getElementById('photos'), subs = document.getElementById('subs');
+  const leak = document.createElement('div'); leak.id = 'leak'; root.insertBefore(leak, document.getElementById('vig'));
   let gi = 0;
+  const TR = ['whip', 'push', 'leak', 'whip', 'shake', 'push'];
   scenes.forEach((sc, i) => {
     sc.el.remove();
     if (sc.ph) { sc.ph.remove(); sc.ph = null; }
     if (sc.card) { sc.card.remove(); sc.card = null; }
-    // motion variants of this scene
     const hlw = ((sc.lines || []).join(' ').match(/\*[^*]+\*/g) || []).map(w => w.replace(/\*/g, ''));
-    const main = sc.type === 'big' ? `<div class="big" data-big>${sc.big}</div>${sc.label ? `<div class="biglabel">${sc.label}</div>` : ''}`
-      : sc.type === 'emoji' ? `<div class="emoji" data-emoji>${sc.emoji}</div>`
-      : `<div class="lines" style="--fs:${sc.type === 'hook' ? 104 : 88}px">${(sc.lines || []).map(l => `<div class="line">${wordsHTML(l)}</div>`).join('')}</div>` + (sc.type === 'cta' ? `<div class="cta-arrow" data-arrow>⬇</div>` : '');
-    const variants = [main];
-    for (const ic of (sc.icons || [])) {                 // [emoji, caption] pairs that show what is said
-      const [em, cap] = Array.isArray(ic) ? ic : [ic, ''];
-      variants.push(`<div class="emoji" data-emoji>${em}</div>${cap ? `<div class="kw"><span class="w hl">${cap}</span></div>` : ''}`);
+    const reveal = l => `<div class="rv">${l}</div>`;
+    const main = sc.type === 'big' ? `<div class="big" data-big>${sc.big}</div>${sc.label ? reveal(`<div class="biglabel">${sc.label}</div>`) : ''}`
+      : sc.type === 'cta' ? `<div class="lines" style="--fs:84px">${(sc.lines || []).map(l => reveal(`<div class="line">${wordsHTML(l)}</div>`)).join('')}</div>`
+      : `<div class="lines" style="--fs:${sc.type === 'hook' ? 100 : 84}px">${(sc.lines || []).map(l => reveal(`<div class="line">${wordsHTML(l)}</div>`)).join('')}</div>`;
+    const variants = [];
+    if (sc.type === 'big' || sc.type === 'hook' || sc.type === 'cta') variants.push(main);
+    for (const ic of (sc.icons || [])) {
+      const [g, cap] = Array.isArray(ic) ? ic : [ic, ''];
+      const art = /^<svg/.test(g) ? `<div class="icon">${g}</div>` : `<div class="emoji">${g}</div>`;
+      variants.push(art + (cap ? reveal(`<div class="kw">${cap}</div>`) : ''));
     }
-    if (hlw.length && sc.type !== 'big') variants.push(`<div class="kw">${hlw.map(w => `<span class="w hl">${w}</span>`).join('<br>')}</div>`);
-    // subtitles = the narration, 2-4 words at a time
+    if (hlw.length && sc.type !== 'big') variants.push(`<div class="kw">${hlw.map(reveal).join('')}</div>`);
+    if (!variants.length) variants.push(main);
+    // captions: the narration, 2-4 words a line, the spoken word lights up (times from narrate.py)
     if (sc.say) {
-      const ws = sc.say.split(/\s+/).filter(Boolean), chunks = [];
-      for (let k = 0; k < ws.length;) { let n = 0, c = [];
-        while (k < ws.length && n < 4) { c.push(ws[k]); n++; if (/[.،,؟?!…:]$/.test(ws[k++]) && n >= 2) break; }
+      const ws = sc.say.split(/\s+/).filter(Boolean);
+      const lead = sc.voiceLead || 0.25;
+      let wt = sc.wt && sc.wt.length === ws.length ? sc.wt : null;
+      if (!wt) { const speak = Math.max(1, sc.dur - lead - 0.35), tot = ws.reduce((x, w) => x + w.length + 1, 0); let t0 = 0;
+        wt = ws.map(w => { const d = speak * (w.length + 1) / tot; const o = [t0, t0 + d]; t0 += d; return o; }); }
+      sc.wtimes = wt.map(([a, b]) => [a + lead, b + lead]);
+      const chunks = [];
+      for (let k = 0; k < ws.length;) { let n = 0; const c = [];
+        while (k < ws.length && n < 4) { c.push(k); n++; if (/[.،,؟?!…:]$/.test(ws[k++]) && n >= 2) break; }
         chunks.push(c); }
-      const lead = sc.voiceLead || 0.25, speak = Math.max(1, sc.dur - lead - 0.35);
-      const tot = chunks.reduce((x, c) => x + c.join(' ').length, 0); let t0 = lead;
-      sc.chunks = chunks.map(c => { const d = speak * c.join(' ').length / tot; const o = {s: t0, e: t0 + d}; t0 += d; return o; });
-      sc.subs = chunks.map(c => { const d = document.createElement('div'); d.className = 'sub'; d.textContent = c.join(' '); subs.appendChild(d); return d; });
+      sc.chunks = chunks.map((c, j) => ({ s: sc.wtimes[c[0]][0] - .05, e: j + 1 < chunks.length ? sc.wtimes[chunks[j + 1][0]][0] - .05 : sc.dur, idx: c }));
+      sc.subs = chunks.map(c => { const d = document.createElement('div'); d.className = 'sub';
+        d.innerHTML = c.map(k => `<span class="cw">${ws[k]}</span>`).join(' '); subs.appendChild(d); d.cws = [...d.querySelectorAll('.cw')]; return d; });
     }
-    // shots: alternate photo shots (only this scene's photo) and this scene's motion variants
+    // shots
     const n = Math.max(1, Math.ceil(sc.dur / BEAT)), len = sc.dur / n;
-    const shots = [];
-    const pics = [].concat(sc.img ? [sc.img] : [], sc.imgs || []);
+    const shots = [], pics = [].concat(sc.img ? [sc.img] : [], sc.imgs || []);
     let pk = 0, vk = 0;
     for (let b = 0; b < n; b++) {
-      const wantPhoto = pics.length && (sc.type === 'big' || sc.type === 'emoji' ? b % 2 === 1 : b % 2 === 0);
-      if (wantPhoto) { shots.push({kind: pk % 2 ? 'card' : 'photo', src: pics[pk % pics.length]}); pk++; }
+      const wantPhoto = pics.length && (sc.type === 'big' ? b % 2 === 1 : b % 2 === 0);
+      if (wantPhoto) { shots.push({kind: pk % 3 === 1 ? 'card' : 'photo', src: pics[pk % pics.length]}); pk++; }
       else { shots.push({kind: 'motion', html: variants[vk % variants.length]}); vk++; }
     }
     shots.forEach((sh, b) => {
       const bt = {sc, s: sc.start + b * len, e: sc.start + (b + 1) * len, kind: sh.kind, g: gi++};
       const r = rng(bt.g * 97 + (S.seed || 7));
+      bt.tr = bt.g === 0 ? 'whip' : TR[Math.floor(r() * TR.length)];
+      bt.dir = r() > .5 ? 1 : -1;
       if (sh.kind === 'motion') {
-        const el = document.createElement('div'); el.className = 'scene'; el.innerHTML = sh.html + `<div class="ring" data-ring></div>`;
+        const el = document.createElement('div'); el.className = 'scene'; el.innerHTML = sh.html;
         el.style.opacity = 0; stage.appendChild(el); bt.el = el;
-        bt.words = [...el.querySelectorAll('.w')].filter(w => w.textContent.trim());
-        bt.hasText = !!el.querySelector('.lines, .kw');   // on-screen words: hide the subtitle meanwhile
+        bt.rv = [...el.querySelectorAll('.rv')];
+        bt.hasText = !!el.querySelector('.lines, .kw');
       } else {
         const d = document.createElement('div');
         if (sh.kind === 'photo') { d.className = 'ph' + (sc.old !== false ? ' old' : ''); photos.appendChild(d); }
         else { d.className = 'dcard'; root.insertBefore(d, stage); }
         d.innerHTML = `<img src="${sh.src}">`; bt.d = d;
-        bt.z0 = 1.12 + r() * .12; bt.dz = (r() > .5 ? 1 : -1) * (.10 + r() * .08);
-        bt.px = (r() * 2 - 1) * 70; bt.py = (r() * 2 - 1) * 60; bt.rot = (r() * 2 - 1) * 2.5;
-        bt.ox = 30 + r() * 40; bt.oy = 25 + r() * 50;
+        bt.z0 = 1.1 + r() * .1; bt.dz = (r() > .5 ? 1 : -1) * (.08 + r() * .06);
+        bt.px = (r() * 2 - 1) * 60; bt.py = (r() * 2 - 1) * 50; bt.ox = 30 + r() * 40; bt.oy = 25 + r() * 50;
       }
       beats.push(bt);
     });
   });
 }
-window.BEATS = beats.map(b => ({t: b.s, kind: b.kind, scene: scenes.indexOf(b.sc)}));
+window.BEATS = beats.map(b => ({t: b.s, kind: b.kind, scene: scenes.indexOf(b.sc), tr: b.tr}));
+function enter(bt, t) {           // transition-in amount (0 -> 1) and its transform
+  const p = ease.out(prog(t, bt.s - .06, .28));
+  if (bt.tr === 'push') return {o: 1, tf: `translateX(${bt.dir * (1 - p) * 1080}px)`, f: ''};
+  if (bt.tr === 'whip') return {o: clamp(p * 3), tf: `scale(${1 + .35 * (1 - p)})`, f: `blur(${(1 - p) * 16}px)`};
+  if (bt.tr === 'shake') { const k = (1 - p) * 26; return {o: clamp(p * 4), tf: `translate(${Math.sin(t * 95) * k}px,${Math.cos(t * 83) * k}px)`, f: ''}; }
+  return {o: clamp(p * 2), tf: '', f: ''};
+}
 function animDyn(t) {
+  let leakA = 0, sh = 0;
   for (const bt of beats) {
-    const on = t >= bt.s - .12 && t < bt.e + .12, u = clamp((t - bt.s) / (bt.e - bt.s));
-    const a = Math.min(ease.out(prog(t, bt.s - .12, .24)), 1 - ease.out(prog(t, bt.e - .12, .24)));
+    const on = t >= bt.s - .06 && t < bt.e + .02, u = clamp((t - bt.s) / (bt.e - bt.s));
+    if (bt.tr === 'leak') leakA = Math.max(leakA, 1 - Math.abs(t - bt.s) / .3);
+    const el = bt.d || bt.el;
+    if (!on) { el.style.opacity = 0; continue; }
+    const E = enter(bt, t);
+    el.style.filter = E.f;
     if (bt.kind === 'photo') {
-      bt.d.style.opacity = on ? a : 0; if (!on) continue;
-      const punch = .10 * (1 - ease.out(prog(t, bt.s - .12, .45)));
-      bt.d.style.transformOrigin = `${bt.ox}% ${bt.oy}%`;
-      bt.d.style.transform = `scale(${bt.z0 + bt.dz * u + punch}) translate(${bt.px * (u - .5)}px,${bt.py * (u - .5)}px) rotate(${bt.rot * (u - .5)}deg)`;
+      el.style.opacity = E.o; el.style.transformOrigin = `${bt.ox}% ${bt.oy}%`;
+      el.style.transform = `${E.tf} scale(${bt.z0 + bt.dz * u}) translate(${bt.px * (u - .5)}px,${bt.py * (u - .5)}px)`;
     } else if (bt.kind === 'card') {
-      bt.d.style.opacity = on ? a : 0; if (!on) continue;
-      const p = prog(t, bt.s - .05, .55), e = ease.back(p);
-      bt.d.style.transform = `translateY(${(1 - e) * 260}px) rotate(${(1 - e) * -14 + bt.rot * 2 + Math.sin(t * 1.3) * 1.2}deg) scale(${.95 + .08 * u})`;
+      el.style.opacity = E.o;
+      el.style.transform = `${E.tf} rotate(${bt.dir * 2.5}deg) scale(${.96 + .07 * u})`;
     } else {
-      const el = bt.el, vis = t >= bt.s && t < bt.e + .15, lt = t - bt.s;
-      const inA = ease.out(prog(lt, 0, .3)), outA = 1 - ease.inOut(prog(t, bt.e - .12, .27));
-      el.style.opacity = vis ? Math.min(inA, outA) : 0; if (!vis) continue;
-      el.style.transform = `translateY(${(1 - inA) * 60}px) scale(${1 + (1 - outA) * .08 + .03 * u})`;
-      bt.words.forEach((w, i) => { const p = prog(lt, .05 + i * .09, .3), e = ease.back(p);
-        w.style.opacity = clamp(p * 1.6); w.style.transform = `translateY(${(1 - e) * 40}px) scale(${.6 + .4 * e})`; w.style.filter = `blur(${(1 - clamp(p * 1.4)) * 10}px)`; });
+      const lt = t - bt.s;
+      el.style.opacity = E.o; el.style.transform = `${E.tf} scale(${1 + .05 * u})`;
+      bt.rv.forEach((d, i) => { const p = ease.out(prog(lt, .08 + i * .14, .4)); d.style.clipPath = `inset(0 0 0 ${(1 - p) * 100}%)`; d.style.transform = `translateX(${(1 - p) * -30}px)`; });
+      const ic = el.querySelector('.icon,.emoji');
+      if (ic) { const p = ease.out(prog(lt, .02, .45)); ic.style.clipPath = `inset(${(1 - p) * 100}% 0 0 0)`; ic.style.transform = `scale(${1 + .06 * u}) translateY(${(1 - p) * 30}px)`; }
       const big = el.querySelector('[data-big]'), sc = bt.sc;
-      if (big) { const p = prog(lt, .05, .5), e = ease.back(p); big.style.transform = `scale(${.3 + .7 * e + .025 * Math.sin(lt * 5) * (p >= 1)})`; big.style.opacity = clamp(p * 2);
-        if (sc.count) big.textContent = (sc.prefix || '') + Math.round(sc.count * ease.out(prog(lt, .05, 1.1))) + (sc.suffix || ''); }
-      const em = el.querySelector('[data-emoji]');
-      if (em) { const p = prog(lt, .05, .5), e = ease.back(p); em.style.transform = `scale(${.2 + .8 * e}) rotate(${(1 - e) * -25 + Math.sin(lt * 2.2) * 5}deg) translateY(${Math.sin(lt * 2) * 12}px)`; em.style.opacity = clamp(p * 2); }
-      const ring = el.querySelector('[data-ring]');
-      if (ring) { const p = prog(lt, .15, 1.1); const s2 = 200 + p * 900; ring.style.width = ring.style.height = s2 + 'px'; ring.style.marginLeft = ring.style.marginTop = (-s2 / 2) + 'px'; ring.style.opacity = (1 - p) * .6; ring.style.top = '40%'; }
-      const ar = el.querySelector('[data-arrow]');
-      if (ar) { ar.style.transform = `translateY(${Math.abs(Math.sin(lt * 3.5)) * 30}px)`; ar.style.opacity = clamp(prog(lt, .4, .3)); }
+      if (big) { const p = ease.out(prog(lt, .02, .2)); big.style.transform = `scale(${1 + .6 * (1 - p) + .04 * u})`; big.style.opacity = clamp(p * 3);
+        if (lt < .45) sh = Math.max(sh, (1 - lt / .45) * 18);
+        if (sc.count) big.textContent = (sc.prefix || '') + Math.round(sc.count * ease.out(prog(lt, .02, .9))) + (sc.suffix || ''); }
     }
   }
-  const textUp = beats.some(bt => bt.kind === 'motion' && bt.hasText && t >= bt.s - .1 && t < bt.e + .1);
-  for (const sc of scenes) if (sc.subs) sc.subs.forEach((d, i) => { const c = sc.chunks[i], l2 = t - sc.start, lastc = i === sc.chunks.length - 1;
-    const on = l2 >= c.s && (l2 < c.e || (lastc && l2 < sc.dur)); const p = prog(l2, c.s, .16), e = ease.back(p);
-    d.style.display = on && !textUp ? 'block' : 'none'; d.style.transform = `scale(${.85 + .15 * e})`; d.style.opacity = clamp(p * 2); });
-  let f = 0; for (const sc of scenes) { const lt = t - sc.start; if (lt >= 0 && lt < .18 && sc.start > 0) f = Math.max(f, (1 - lt / .18) * .25); }
-  return f;
+  document.getElementById('leak').style.opacity = leakA * .85;
+  document.getElementById('stage').style.transform = sh ? `translate(${Math.sin(t * 90) * sh}px,${Math.cos(t * 77) * sh}px)` : '';
+  const textUp = beats.some(bt => bt.kind === 'motion' && bt.hasText && t >= bt.s - .05 && t < bt.e);
+  for (const sc of scenes) if (sc.subs) sc.subs.forEach((d, i) => {
+    const c = sc.chunks[i], l2 = t - sc.start, on = l2 >= c.s && l2 < c.e && l2 < sc.dur;
+    d.style.display = on && !textUp ? 'block' : 'none'; if (!on) return;
+    const p = ease.out(prog(l2, c.s, .14)); d.style.transform = `translateY(${(1 - p) * 24}px)`; d.style.opacity = p;
+    d.cws.forEach((w, j) => { const [a, b] = sc.wtimes[c.idx[j]]; const cur = l2 >= a && l2 < b + .08;
+      w.className = 'cw' + (cur ? ' on' : l2 >= b ? ' past' : ''); });
+  });
+  return 0;
 }
 
 // ---------- background ----------

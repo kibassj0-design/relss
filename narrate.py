@@ -131,6 +131,33 @@ def snap(starts, total, gaps):
     return out + [total]
 
 
+def word_times(wav, text, secs):
+    """Time of every word inside a scene clip: the speech (between pauses) is shared out by
+    word length, so pauses fall between words and every word lights up when it is spoken."""
+    words = text.split()
+    gaps = [(a, b) for a, b in pauses(wav, -38, 0.12) if b - a > 0.1 and a > 0.05 and b < secs - 0.05]
+    segs, t = [], 0.0
+    for a, b in gaps:
+        segs.append((t, a)); t = b
+    segs.append((t, secs))
+    speech = sum(b - a for a, b in segs) or secs
+    wts = [len(w.strip(".،,؟?!…:")) + 1.5 for w in words]
+    total = sum(wts)
+
+    def at(x):                      # speech-time -> clip time
+        for a, b in segs:
+            if x <= b - a + 1e-9:
+                return a + x
+            x -= b - a
+        return secs
+    out, x = [], 0.0
+    for w in wts:
+        d = speech * w / total
+        out.append([round(at(x + 0.001), 3), round(at(x + d), 3)])
+        x += d
+    return out
+
+
 def main():
     path = sys.argv[1]
     voice = sys.argv[sys.argv.index("--voice") + 1] if "--voice" in sys.argv else "Charon"
@@ -158,6 +185,7 @@ def main():
         sc["dur"] = round(max(2.0, LEAD + secs + TAIL), 2)
         sc["wordStart"] = LEAD
         sc["wordGap"] = round(max(0.12, min(0.45, secs * 0.8 / max(words, 1))), 3)
+        sc["wt"] = word_times(wav, texts[i], secs)
         print(f"  scene {i}: {secs:4.1f}s  {texts[i][:40]}")
     json.dump(story, open(path, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
 

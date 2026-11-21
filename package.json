@@ -1,0 +1,16 @@
+{
+  "name": "qisas",
+  "version": "1.0.0",
+  "description": "",
+  "main": "audio.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@iconify-json/game-icons": "^1.2.4",
+    "@iconify-json/twemoji": "^1.2.5"
+  }
+}
