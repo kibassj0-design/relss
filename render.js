@@ -17,6 +17,20 @@ for (const sc of story.scenes) {
 }
 const outDir = path.join(__dirname, 'out');
 fs.mkdirSync(outDir, { recursive: true });
+// Flow clips: a scene with "clip" plays that video under the scene (frames extracted once with ffmpeg)
+story.scenes.forEach((sc, i) => {
+  if (!sc.clip) return;
+  if (!fs.existsSync(path.join(__dirname, sc.clip))) { console.log('missing clip, photos instead:', sc.clip); return; }
+  const rel = path.join('out', 'frames', path.basename(file, '.json'), String(i));
+  const dir = path.join(__dirname, rel);
+  if (!fs.existsSync(path.join(dir, '0001.jpg'))) {
+    fs.mkdirSync(dir, { recursive: true });
+    execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-i', path.join(__dirname, sc.clip), '-t', String(sc.dur + 0.2),
+      '-vf', `fps=${FPS},scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920`, '-q:v', '3', path.join(dir, '%04d.jpg')]);
+  }
+  sc.frames = fs.readdirSync(dir).filter(f => f.endsWith('.jpg')).sort().map(f => (rel + '/' + f).split(path.sep).join('/'));
+  sc.clipFps = FPS;
+});
 
 (async () => {
   const browser = await chromium.launch();

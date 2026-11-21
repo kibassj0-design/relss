@@ -13,6 +13,8 @@ The API key is added by the network proxy (header x-goog-api-key); nothing is re
 import base64, json, os, re, subprocess, sys, time, urllib.error, urllib.request, wave
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
+# behind the proxy the key is injected; on the owner's PC it comes from GEMINI_API_KEY
+HEADERS = {"Content-Type": "application/json", **({"x-goog-api-key": os.environ["GEMINI_API_KEY"]} if os.environ.get("GEMINI_API_KEY") else {})}
 MODELS = ["gemini-3.8-flash-tts", "gemini-2.5-flash-preview-tts", "gemini-3.1-flash-tts-preview",
           "gemini-2.5-pro-preview-tts"]
 STYLE = ""  # 3.8 TTS reads any instruction aloud: send the bare text
@@ -28,7 +30,7 @@ def tts(text, voice):
     for model in MODELS:
         url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
         for attempt in range(3):
-            req = urllib.request.Request(url, json.dumps(body).encode(), {"Content-Type": "application/json"})
+            req = urllib.request.Request(url, json.dumps(body).encode(), HEADERS)
             try:
                 with urllib.request.urlopen(req, timeout=300) as r:
                     d = json.load(r)
@@ -57,7 +59,7 @@ def read_pcm(path):
 
 def pauses(path, db=-35, dur=0.18):
     out = subprocess.run(["ffmpeg", "-hide_banner", "-i", path, "-af", f"silencedetect=n={db}dB:d={dur}",
-                          "-f", "null", "-"], capture_output=True, text=True).stderr
+                          "-f", "null", "-"], capture_output=True, text=True, encoding="utf-8", errors="replace").stderr
     s = [float(x) for x in re.findall(r"silence_start: ([\d.]+)", out)]
     e = [float(x) for x in re.findall(r"silence_end: ([\d.]+)", out)]
     return list(zip(s, e))
@@ -109,7 +111,7 @@ def align(path, texts):
     for model in ALIGN_MODELS:
         url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
         try:
-            req = urllib.request.Request(url, json.dumps(body).encode(), {"Content-Type": "application/json"})
+            req = urllib.request.Request(url, json.dumps(body).encode(), HEADERS)
             with urllib.request.urlopen(req, timeout=180) as r:
                 d = json.load(r)
             st = json.loads(d["candidates"][0]["content"]["parts"][0]["text"])["starts"]
