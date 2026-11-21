@@ -15,6 +15,9 @@ everything. Talk to the owner in **Iraqi Arabic**, short and friendly.
   slot (Baghdad 14:37 and 20:37). The owner's PC runs **autopost**, which polls
   `ready/index.json` on this branch every 10 min and posts at that time with that caption.
 - `ideas/used.txt` — every story already made (never repeat one).
+- `FLOW.md` / `GEMINI.md` — on the owner's PC (Claude in Chrome) make AI video clips with Flow and
+  images / clips / music with Gemini, using the owner's subscriptions. A scene with
+  `"clip": "clips/<story>/<file>.mp4"` plays that clip under the whole scene.
 
 ## Daily run (a scheduled task starts a fresh session every day)
 1. **Propose one idea** — read `ideas/used.txt`, pick a NEW story. Mostly real, well-documented
@@ -49,7 +52,8 @@ everything. Talk to the owner in **Iraqi Arabic**, short and friendly.
 3. If nothing is approved that day, do nothing else.
 
 ## Rules
-- Never post or copy other creators' videos. Photos: Commons / CC licences only.
+- Never post or copy other creators' videos. Photos: Commons / CC licences, or our own AI shots
+  from Flow/Gemini for atmosphere only (never fake photos of real people or events).
 - Keep `ready/` small: delete videos whose time passed more than 7 days ago (keep their index entries).
 - Requirements in a fresh container: Chromium + Playwright are preinstalled; ffmpeg present;
   Python Pillow present. Network: upload.wikimedia.org, commons.wikimedia.org, api.openverse.org.
