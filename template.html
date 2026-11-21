@@ -209,6 +209,7 @@ if (DYN) {
         const el = document.createElement('div'); el.className = 'scene'; el.innerHTML = sh.html + `<div class="ring" data-ring></div>`;
         el.style.opacity = 0; stage.appendChild(el); bt.el = el;
         bt.words = [...el.querySelectorAll('.w')].filter(w => w.textContent.trim());
+        bt.hasText = !!el.querySelector('.lines, .kw');   // on-screen words: hide the subtitle meanwhile
       } else {
         const d = document.createElement('div');
         if (sh.kind === 'photo') { d.className = 'ph' + (sc.old !== false ? ' old' : ''); photos.appendChild(d); }
@@ -222,6 +223,7 @@ if (DYN) {
     });
   });
 }
+window.BEATS = beats.map(b => ({t: b.s, kind: b.kind, scene: scenes.indexOf(b.sc)}));
 function animDyn(t) {
   for (const bt of beats) {
     const on = t >= bt.s - .12 && t < bt.e + .12, u = clamp((t - bt.s) / (bt.e - bt.s));
@@ -253,9 +255,10 @@ function animDyn(t) {
       if (ar) { ar.style.transform = `translateY(${Math.abs(Math.sin(lt * 3.5)) * 30}px)`; ar.style.opacity = clamp(prog(lt, .4, .3)); }
     }
   }
+  const textUp = beats.some(bt => bt.kind === 'motion' && bt.hasText && t >= bt.s - .1 && t < bt.e + .1);
   for (const sc of scenes) if (sc.subs) sc.subs.forEach((d, i) => { const c = sc.chunks[i], l2 = t - sc.start, lastc = i === sc.chunks.length - 1;
     const on = l2 >= c.s && (l2 < c.e || (lastc && l2 < sc.dur)); const p = prog(l2, c.s, .16), e = ease.back(p);
-    d.style.display = on ? 'block' : 'none'; d.style.transform = `scale(${.85 + .15 * e})`; d.style.opacity = clamp(p * 2); });
+    d.style.display = on && !textUp ? 'block' : 'none'; d.style.transform = `scale(${.85 + .15 * e})`; d.style.opacity = clamp(p * 2); });
   let f = 0; for (const sc of scenes) { const lt = t - sc.start; if (lt >= 0 && lt < .18 && sc.start > 0) f = Math.max(f, (1 - lt / .18) * .25); }
   return f;
 }

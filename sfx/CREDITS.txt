@@ -1,0 +1,110 @@
+glitch/776016.mp3: "POP SFX Neutral" by ethernel0 (CC0) https://freesound.org/s/776016/
+glitch/683183.mp3: "Magic Depleted 2" by NearTheAtmoshphere (CC0) https://freesound.org/s/683183/
+glitch/683182.mp3: "Magic Depleted 1" by NearTheAtmoshphere (CC0) https://freesound.org/s/683182/
+glitch/432294.mp3: "Swoosh 2.wav" by AudioPapkin (CC0) https://freesound.org/s/432294/
+shutter/521854.mp3: "Camera Manual Click.wav" by D.jones (CC0) https://freesound.org/s/521854/
+shutter/337229.mp3: "pentax me - shutter 04.wav" by Anthousai (CC0) https://freesound.org/s/337229/
+shutter/693869.mp3: "35mm Film Camera Shutter With Motorised Winder (3)" by Fission9 (CC0) https://freesound.org/s/693869/
+shutter/337226.mp3: "pentax me - shutter 01.wav" by Anthousai (CC0) https://freesound.org/s/337226/
+pop/220180.mp3: "Click Pop" by GameAudio (CC0) https://freesound.org/s/220180/
+pop/849841.mp3: "ui-popup-sfx" by JeffPearson (CC0) https://freesound.org/s/849841/
+pop/653369.mp3: "SharpClick.wav" by TriqyStudio (CC0) https://freesound.org/s/653369/
+pop/878254.mp3: "UI Toast Notification" by Qvantor (CC0) https://freesound.org/s/878254/
+pop/669918.mp3: "The Best Bubble Pop Sound For Game and UI" by el_boss (CC0) https://freesound.org/s/669918/
+typewriter/406243.mp3: "Typewriter ding_near_mono.wav" by _stubb (CC0) https://freesound.org/s/406243/
+typewriter/652588.mp3: "Vintage Typewriter" by VishwaJay (CC0) https://freesound.org/s/652588/
+typewriter/539146.mp3: "Keyboard Typing 001.wav" by ristooooo1 (CC0) https://freesound.org/s/539146/
+paper/272015.mp3: "Crumpling Paper" by aldenroth2 (CC0) https://freesound.org/s/272015/
+paper/642770.mp3: "Paper shuffling.mp3" by meeser9 (CC0) https://freesound.org/s/642770/
+paper/676626.mp3: "Rip 9 - Long" by NearTheAtmoshphere (CC0) https://freesound.org/s/676626/
+heartbeat/232481.mp3: "RWHeart.wav" by bluejello13 (CC0) https://freesound.org/s/232481/
+heartbeat/701100.mp3: "Heartbeat Loop 73/146 BPM.wav" by 8bitmyketison (CC0) https://freesound.org/s/701100/
+heartbeat/725408.mp3: "owl-plonk stretched tenfold" by Jerimee (CC0) https://freesound.org/s/725408/
+clock/455385.mp3: "recharge sound" by thomasomas (CC0) https://freesound.org/s/455385/
+clock/457539.mp3: "DOWNCLOCKWORK.wav" by PanxoZerok (CC0) https://freesound.org/s/457539/
+clock/864446.mp3: "Ticking Clock" by Nburg323 (CC0) https://freesound.org/s/864446/
+plane/805168.mp3: "Jet Flyby 01" by mrspivey (CC0) https://freesound.org/s/805168/
+plane/638499.mp3: "Powerful Starship Rocket Flyby" by Jace (CC0) https://freesound.org/s/638499/
+plane/623015.mp3: "Whoosh_Passby_Jet_Long_Stereo.wav" by Nox_Sound (CC0) https://freesound.org/s/623015/
+plane/270271.mp3: "Air Plane Interior Ambience Loop" by IanStarGem (CC0) https://freesound.org/s/270271/
+propeller/502671.mp3: "Turbo Commander 690 Takeoff L to R" by highflyer500 (CC0) https://freesound.org/s/502671/
+propeller/330816.mp3: "Hercules C130.WAV" by Sandermotions (CC0) https://freesound.org/s/330816/
+propeller/266307.mp3: "kaivo airplane.flac" by alchemical (CC0) https://freesound.org/s/266307/
+gunshot/855842.mp3: "An AK-47 being shot // has distinctive metallic kalashnikov-esque report // punchy sounding" by serøutōnin--deprivəd (CC0) https://freesound.org/s/855842/
+gunshot/541164.mp3: "Distant Gunshot" by Resaural (CC0) https://freesound.org/s/541164/
+gunshot/855843.mp3: "An AK-47 being shot // has distinctive metallic kalashnikov-esque report // punchy sounding w/ distant trailing reverb" by serøutōnin--deprivəd (CC0) https://freesound.org/s/855843/
+gunshot/385812.mp3: "Single Distant Pistol Gunshot.wav" by morganpurkis (CC0) https://freesound.org/s/385812/
+explosion/109741.mp3: "hit loud.aiff" by SoundCollectah (CC0) https://freesound.org/s/109741/
+explosion/404753.mp3: "Retro video game sfx - Explode 4" by OwlStorm (CC0) https://freesound.org/s/404753/
+explosion/109738.mp3: "hilow multi hits.aiff" by SoundCollectah (CC0) https://freesound.org/s/109738/
+explosion/682122.mp3: "Distant Shot 4.wav" by HenKonen (CC0) https://freesound.org/s/682122/
+battle/694374.mp3: "Fireworks/ Warzone 6" by NearTheAtmoshphere (CC0) https://freesound.org/s/694374/
+battle/694371.mp3: "Fireworks/ Warzone 3" by NearTheAtmoshphere (CC0) https://freesound.org/s/694371/
+battle/694360.mp3: "Fireworks/ Warzone 1" by NearTheAtmoshphere (CC0) https://freesound.org/s/694360/
+ocean/723819.mp3: "Gelatinous" by lori.mortimer (CC0) https://freesound.org/s/723819/
+ocean/341491.mp3: "waves.wav" by Masou (CC0) https://freesound.org/s/341491/
+ocean/476886.mp3: "Ocean Ambiance Night" by nick121087 (CC0) https://freesound.org/s/476886/
+ship/452106.mp3: "wood creaks deep door or ship hull quicker2.flac" by kyles (CC0) https://freesound.org/s/452106/
+ship/452105.mp3: "wood creaks deep door or ship hull quicker1.flac" by kyles (CC0) https://freesound.org/s/452105/
+ship/478667.mp3: "Creaking Wooden Floor" by DBlover (CC0) https://freesound.org/s/478667/
+storm/877970.mp3: "Wind Howling, Synthesized" by Qvantor (CC0) https://freesound.org/s/877970/
+storm/331892.mp3: "wind whistling spooky haunted howling" by squashy555 (CC0) https://freesound.org/s/331892/
+storm/623604.mp3: "Strong Winds inside house 01" by khenshom (CC0) https://freesound.org/s/623604/
+rain/750667.mp3: "Thunder 6" by LukaCafuka (CC0) https://freesound.org/s/750667/
+rain/495483.mp3: "thunder-with-synth 2.wav" by klangfabrik (CC0) https://freesound.org/s/495483/
+rain/237732.mp3: "Rain and Thunder 3" by FlatHill (CC0) https://freesound.org/s/237732/
+jungle/468241.mp3: "Thailand Phangan Jungle Waterfall 2" by Archos (CC0) https://freesound.org/s/468241/
+jungle/651235.mp3: "thai-jungle-waterfall-cicadas.wav" by trubalesk (CC0) https://freesound.org/s/651235/
+jungle/222636.mp3: "Ambient birds and rooster Kauai.wav" by tec_studio (CC0) https://freesound.org/s/222636/
+forest/434024.mp3: "Bird, Robin Isolated" by JohnsonBrandEditing (CC0) https://freesound.org/s/434024/
+forest/268962.mp3: "Cicada Insects 8_26_13 8_06 PM.wav" by harryScary (CC0) https://freesound.org/s/268962/
+night/268962.mp3: "Cicada Insects 8_26_13 8_06 PM.wav" by harryScary (CC0) https://freesound.org/s/268962/
+night/254270.mp3: "Midnight train horn, with a dose of crickets. " by PhilllChabbb (CC0) https://freesound.org/s/254270/
+crowd/675054.mp3: "S11-22 Courtroom pre-trial murmuring.wav" by craigsmith (CC0) https://freesound.org/s/675054/
+crowd/867051.mp3: "Medium Crowd Walla" by IENBA (CC0) https://freesound.org/s/867051/
+crowd/480808.mp3: "R16-17-Men Murmuring.wav" by craigsmith (CC0) https://freesound.org/s/480808/
+cheer/777709.mp3: "Synced applause edited 1" by Sadiquecat (CC0) https://freesound.org/s/777709/
+cheer/267246.mp3: "BerlinGameScene.com Crowd Cheer 4" by BerlinGameScene (CC0) https://freesound.org/s/267246/
+gasp/763875.mp3: "CRWDReac_Crowd Gasping In Surprise, Voiced 01_ShaneVincent_GSC24_XY-AKG214-96k.wav" by ShangusBurger (CC0) https://freesound.org/s/763875/
+gasp/333398.mp3: "Gasp 2 with wonder.wav" by jayfrosting (CC0) https://freesound.org/s/333398/
+footsteps/403600.mp3: "Human_Steps_Barefoot_Wood.wav" by LamaMakesMusic (CC0) https://freesound.org/s/403600/
+footsteps/584323.mp3: "Abrupt stopping on gravel road 2.wav" by Vendarro (CC0) https://freesound.org/s/584323/
+footsteps/819329.mp3: "Getting out of bed and stepping with bare feet on the panels" by RafMOL (CC0) https://freesound.org/s/819329/
+snow/422630.mp3: "Steps on snow passing by" by Aurelon (CC0) https://freesound.org/s/422630/
+snow/94335.mp3: "fotsteg på hård snö 5.wav" by Ryding (CC0) https://freesound.org/s/94335/
+city/473723.mp3: "Kitchen Ambience During Daytime .wav" by Joao_Janz (CC0) https://freesound.org/s/473723/
+city/325506.mp3: "CITY AMBIENCE for CLEAN LOOP.wav" by ListenTonyBoy (CC0) https://freesound.org/s/325506/
+radio/675937.mp3: "S30-42 Shortwave radio with electrical noises & pinball added.wav" by craigsmith (CC0) https://freesound.org/s/675937/
+radio/561848.mp3: "Foley_Object_Small_Radio_Interference_Loop_Mono_02.wav" by Nox_Sound (CC0) https://freesound.org/s/561848/
+radio/444673.mp3: "old radio noise.ogg" by Tissman (CC0) https://freesound.org/s/444673/
+morse/344734.mp3: "morse-code.mp3" by potsunen (CC0) https://freesound.org/s/344734/
+morse/832759.mp3: "UUUU A RADIO PICTURE UUUU_20WPM  900Hz 90%" by SieuAmThanh (CC0) https://freesound.org/s/832759/
+radar/807657.mp3: "04 - Alarms & Beeps - Scanning For Hostiles B" by Snoops_Audio1 (CC0) https://freesound.org/s/807657/
+radar/584179.mp3: "Radar" by unfa (CC0) https://freesound.org/s/584179/
+radar/371178.mp3: "Sonar sweep beep" by SamsterBirdies (CC0) https://freesound.org/s/371178/
+fire/676385.mp3: "Fire Crackling" by StevenMyat_ (CC0) https://freesound.org/s/676385/
+fire/549208.mp3: "Fireplace.wav" by OwennewO (CC0) https://freesound.org/s/549208/
+wind/195730.mp3: "130721_Biokovo_4323085E1655413_R_4824.wav" by blaukreuz (CC0) https://freesound.org/s/195730/
+wind/623604.mp3: "Strong Winds inside house 01" by khenshom (CC0) https://freesound.org/s/623604/
+metal/718749.mp3: "Metal Shovel Impact SFX (leading woosh)2" by Sadiquecat (CC0) https://freesound.org/s/718749/
+metal/528816.mp3: "Sci-Fi Bass Blast" by magnuswaker (CC0) https://freesound.org/s/528816/
+metal/536256.mp3: "Metal Gauntlet Punch 3" by Hoggington (CC0) https://freesound.org/s/536256/
+bell/578543.mp3: "Church Bell 1" by nomiqbomi (CC0) https://freesound.org/s/578543/
+bell/753412.mp3: "Church bells Pont Barer, la Drôme France" by MJPtack (CC0) https://freesound.org/s/753412/
+money/362760.mp3: "coin spinning on ceramic plate_2.wav" by tec_studio (CC0) https://freesound.org/s/362760/
+money/459520.mp3: "⇢ GREAT Fx Money.wav" by SingleCoil (CC0) https://freesound.org/s/459520/
+money/400116.mp3: "Natural Metal Coin Sound 5.wav" by The-Sacha-Rush (CC0) https://freesound.org/s/400116/
+music_dark/674936.mp3: "Stoned Song" by Seth_Makes_Sounds (CC0) https://freesound.org/s/674936/
+music_dark/682201.mp3: "Spooky Synthwave" by Seth_Makes_Sounds (CC0) https://freesound.org/s/682201/
+music_dark/596463.mp3: "Dark London Night Atmo Thriller Soundscape Experimental Music - EQ Mastered.wav" by szegvari (CC0) https://freesound.org/s/596463/
+music_dark/560618.mp3: "Dark Ghost House" by szegvari (CC0) https://freesound.org/s/560618/
+music_mystery/871981.mp3: "MUSIC BOX" by MadGravityStudio (CC0) https://freesound.org/s/871981/
+music_mystery/652857.mp3: "DSGNErie_Rhythm01_InMotionAudio_FREESampleSunday.wav" by InMotionAudio (CC0) https://freesound.org/s/652857/
+music_mystery/789664.mp3: "SHADY" by MadGravityStudio (CC0) https://freesound.org/s/789664/
+music_mystery/530598.mp3: "Suspense music.mp3" by Darkash28 (CC0) https://freesound.org/s/530598/
+music_drone/714699.mp3: "Enchanted cave" by xkeril (CC0) https://freesound.org/s/714699/
+music_drone/724667.mp3: "MOVE THROUGH THE DARK (MP3)" by MadGravityStudio (CC0) https://freesound.org/s/724667/
+music_drone/579264.mp3: "Dark Drone 7" by nomiqbomi (CC0) https://freesound.org/s/579264/
+music_epic/621849.mp3: "Slow building synth - Riser Uplifter.wav" by WelvynZPorterSamples (CC0) https://freesound.org/s/621849/
+music_epic/621294.mp3: "Orchestral Score 1 - NOT mastered.wav" by WelvynZPorterSamples (CC0) https://freesound.org/s/621294/
+music_epic/621845.mp3: "Orchestral Score - Violas.wav" by WelvynZPorterSamples (CC0) https://freesound.org/s/621845/

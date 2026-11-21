@@ -1,7 +1,9 @@
 // usage: node audio.js stories/01-onoda.json [video.mp4]
-// Builds the sound bed (dark pad + clock ticks + boom/whoosh on every scene cut) and puts it
-// on the video (video stream is copied, nothing is re-rendered). Mixed for phone speakers:
-// most energy is between 200 Hz and 4 kHz, loudness normalised to -14 LUFS.
+// Sound design for a story video (the video stream is copied, nothing is re-rendered):
+//   narration (each scene's voice at its cut)  +  a real music bed from sfx/music_*  +
+//   a different whoosh/swish on every shot change, a camera click on framed photos, an impact
+//   on hooks and big numbers, and each scene's own effects ("sfx": ["plane", "crowd", ...]).
+// Every sound is a CC0 file from sfx/<category>/ (see sfx/CREDITS.txt). Loudness -14 LUFS.
 const { chromium } = require('playwright');
 const { execFileSync } = require('child_process');
 const fs = require('fs'), path = require('path');
@@ -12,49 +14,80 @@ async function timing(story) {
   await page.addInitScript(s => { window.STORY = s; }, story);
   await page.goto('file://' + path.join(__dirname, 'template.html'));
   await page.evaluate(() => window.READY);
-  const r = await page.evaluate(() => ({ total: window.TOTAL, cuts: window.CUTS }));
+  const r = await page.evaluate(() => ({ total: window.TOTAL, cuts: window.CUTS, beats: window.BEATS || [] }));
   await browser.close();
   return r;
 }
 
-function addAudio(video, total, cuts, out, scenes = []) {
-  const T = total.toFixed(2);
-  // A-minor pad with harmonics (audible on phones), slowly breathing
-  const pad = `aevalsrc='(0.5+0.5*sin(2*PI*0.08*t))*(` +
-    `0.20*sin(2*PI*220*t)+0.16*sin(2*PI*261.6*t)+0.16*sin(2*PI*329.6*t)+0.10*sin(2*PI*440*t)` +
-    `+0.06*sin(2*PI*659.3*t+sin(2*PI*0.3*t))+0.08*sin(2*PI*110*t))':s=44100:d=${T}`;
-  // clock tick every second (suspense)
-  const tick = `aevalsrc='0.5*sin(2*PI*2200*t)*exp(-90*mod(t,1))+0.3*sin(2*PI*1400*t)*exp(-120*mod(t+0.5,1))*0.6':s=44100:d=${T}`;
-  const inputs = ['-f', 'lavfi', '-i', pad, '-f', 'lavfi', '-i', tick];
-  let filt = '[1]lowpass=f=2500,volume=0.55[pad];[2]highpass=f=900,volume=0.18[tick];';
-  const hits = [];
-  cuts.forEach((c, i) => {
-    // boom with a punchy mid harmonic + short noise whoosh
-    inputs.push('-f', 'lavfi', '-i',
-      `aevalsrc='0.9*sin(2*PI*(70+300*exp(-12*t))*t)*exp(-4*t)+0.35*sin(2*PI*(180+500*exp(-15*t))*t)*exp(-6*t)+0.5*(random(0)*2-1)*exp(-9*t)':s=44100:d=1.4`);
-    const ms = Math.max(0, Math.round(c * 1000 - 60));
-    filt += `[${3 + i}]highpass=f=60,adelay=${ms}|${ms},volume=0.7[h${i}];`;
-    hits.push(`[h${i}]`);
+// deterministic pick so the same story always sounds the same, but stories differ
+function picker(seed) {
+  let x = seed | 0;
+  const rnd = () => { x = (x * 1103515245 + 12345) & 0x7fffffff; return x / 0x7fffffff; };
+  const lists = {};
+  const files = cat => {
+    if (!lists[cat]) {
+      const dir = path.join(__dirname, 'sfx', cat);
+      lists[cat] = fs.existsSync(dir) ? fs.readdirSync(dir).filter(f => f.endsWith('.mp3')).map(f => path.join(dir, f)) : [];
+    }
+    return lists[cat];
+  };
+  let last = '';
+  return cat => {             // never the same file twice in a row
+    const l = files(cat); if (!l.length) return null;
+    let f = l[Math.floor(rnd() * l.length)];
+    if (f === last && l.length > 1) f = l[(l.indexOf(f) + 1) % l.length];
+    return (last = f);
+  };
+}
+
+function addAudio(video, total, cuts, out, scenes = [], beats = [], story = {}) {
+  const pick = picker((story.seed || 7) * 7919);
+  const inputs = [], parts = [];
+  let k = 1;                                   // input 0 is the video
+  const add = (file, opts = []) => { inputs.push(...opts, '-i', file); return k++; };
+  const at = s => Math.max(0, Math.round(s * 1000));
+  const place = (idx, start, vol, extra = '') => {
+    const lab = `a${parts.length}`;
+    parts.push({ f: `[${idx}]aresample=44100,aformat=channel_layouts=stereo${extra},volume=${vol},adelay=${at(start)}|${at(start)}[${lab}]`, lab });
+  };
+  const voiced = scenes.some(sc => sc.voice && fs.existsSync(path.join(__dirname, sc.voice)));
+
+  // music bed (looped, faded, under the voice)
+  const music = pick(story.music || 'music_mystery') || pick('music_dark') || pick('music_drone');
+  if (music) {
+    const i = add(music, ['-stream_loop', '-1']);
+    place(i, 0, voiced ? 0.16 : 0.45, `,atrim=0:${total.toFixed(2)},afade=t=in:d=1.5,afade=t=out:st=${(total - 2.5).toFixed(2)}:d=2.5`);
+  }
+  // narration
+  scenes.forEach((sc, s) => {
+    if (sc.voice && fs.existsSync(path.join(__dirname, sc.voice)))
+      place(add(path.join(__dirname, sc.voice)), cuts[s] + (sc.voiceLead || 0), 1.9);
   });
-  // narration: each scene's voice starts at its cut; the music ducks under it
-  const voices = [];
-  scenes.forEach((sc, i) => {
-    if (!sc.voice || !fs.existsSync(path.join(__dirname, sc.voice))) return;
-    const k = 3 + cuts.length + voices.length;
-    inputs.push('-i', path.join(__dirname, sc.voice));
-    const ms = Math.round((cuts[i] + (sc.voiceLead || 0)) * 1000);
-    filt += `[${k}]aresample=44100,adelay=${ms}|${ms},volume=2.2[v${voices.length}];`;
-    voices.push(`[v${voices.length}]`);
+  // shot changes: alternate whoosh / swish, camera click for framed photos
+  beats.forEach((b, j) => {
+    if (b.t < 0.05) return;
+    const f = pick(j % 2 ? 'swish' : 'whoosh');
+    if (f) place(add(f), b.t - 0.18, 0.32, ',atrim=0:1.6,afade=t=out:st=1.1:d=0.5');
+    if (b.kind === 'card') { const c = pick('shutter'); if (c) place(add(c), b.t + 0.05, 0.45, ',atrim=0:1'); }
   });
-  const bedVol = voices.length ? 0.35 : 1;
-  filt += `[pad][tick]${hits.join('')}amix=inputs=${2 + hits.length}:normalize=0,volume=${bedVol}[bed];`;
-  filt += (voices.length ? `[bed]${voices.join('')}amix=inputs=${1 + voices.length}:normalize=0,` : `[bed]anull,`) +
-    `afade=t=in:d=0.6,afade=t=out:st=${(total - 1.5).toFixed(2)}:d=1.5,` +
+  // per scene: impact on hook / numbers, plus the scene's own effects
+  scenes.forEach((sc, s) => {
+    const st = cuts[s], dur = sc.dur || 3;
+    if (sc.type === 'hook' || sc.type === 'big') { const f = pick('impact'); if (f) place(add(f), st, 0.5, ',atrim=0:3,afade=t=out:st=2:d=1'); }
+    if (sc.type === 'cta') { const f = pick('riser'); if (f) place(add(f), Math.max(0, st - 1.5), 0.3, ',atrim=0:3,afade=t=out:st=2.2:d=0.8'); }
+    for (const cat of sc.sfx || []) {
+      const f = pick(cat); if (!f) continue;
+      const len = Math.min(dur + 0.6, 12).toFixed(2);
+      place(add(f), st, voiced ? 0.33 : 0.55, `,atrim=0:${len},afade=t=in:d=0.25,afade=t=out:st=${Math.max(0, len - 0.8).toFixed(2)}:d=0.8`);
+    }
+  });
+  let filt = parts.map(p => p.f).join(';') + ';' + parts.map(p => `[${p.lab}]`).join('') +
+    `amix=inputs=${parts.length}:normalize=0,atrim=0:${total.toFixed(2)},afade=t=out:st=${(total - 1.2).toFixed(2)}:d=1.2,` +
     `loudnorm=I=-14:TP=-1.5:LRA=11,aformat=channel_layouts=stereo[aout]`;
   const tmp = out + '.tmp.mp4';
   execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-i', video, ...inputs, '-filter_complex', filt,
-    '-map', '0:v', '-map', '[aout]', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '160k', '-ar', '44100',
-    '-shortest', '-movflags', '+faststart', tmp]);
+    '-map', '0:v', '-map', '[aout]', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '192k', '-ar', '44100',
+    '-t', total.toFixed(2), '-movflags', '+faststart', tmp], { maxBuffer: 1 << 26 });
   fs.renameSync(tmp, out);
 }
 
@@ -66,8 +99,8 @@ if (require.main === module) {
     const name = path.basename(file, '.json');
     const story = JSON.parse(fs.readFileSync(file, 'utf8'));
     const video = process.argv[3] || path.join(__dirname, 'out', `${name}.mp4`);
-    const { total, cuts } = await timing(story);
-    addAudio(video, total, cuts, video, story.scenes);
+    const { total, cuts, beats } = await timing(story);
+    addAudio(video, total, cuts, video, story.scenes, beats, story);
     console.log(`${name}: sound done -> ${video}`);
   })();
 }

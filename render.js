@@ -26,6 +26,7 @@ fs.mkdirSync(outDir, { recursive: true });
   await page.evaluate(() => window.READY);
   const total = await page.evaluate(() => window.TOTAL);
   const cuts = await page.evaluate(() => window.CUTS);
+  const beats = await page.evaluate(() => window.BEATS || []);
 
   if (preview) {
     for (const [i, c] of cuts.entries()) {
@@ -69,7 +70,7 @@ fs.mkdirSync(outDir, { recursive: true });
   for (const f of segs) fs.unlinkSync(f); fs.unlinkSync(list);
 
   const out = path.join(outDir, `${name}.mp4`);
-  require('./audio').addAudio(silent, total, cuts, out, story.scenes);
+  require('./audio').addAudio(silent, total, cuts, out, story.scenes, beats, story);
   fs.unlinkSync(silent);
   console.log(`\r${name}: done ${total.toFixed(1)}s -> ${out}`);
 })();

@@ -39,7 +39,10 @@
     "images/01-onoda/s0-2.jpg",
     "images/01-onoda/s0-3.jpg"
    ],
-   "old": false
+   "old": false,
+   "sfx": [
+    "battle"
+   ]
   },
   {
    "type": "text",
@@ -72,7 +75,10 @@
    ],
    "img": "images/01-onoda/s1-2.jpg",
    "imgs": [],
-   "old": false
+   "old": false,
+   "sfx": [
+    "clock"
+   ]
   },
   {
    "type": "big",
@@ -109,7 +115,10 @@
     "images/01-onoda/s2-2.jpg",
     "images/01-onoda/s2-3.jpg"
    ],
-   "old": false
+   "old": false,
+   "sfx": [
+    "ocean"
+   ]
   },
   {
    "type": "text",
@@ -141,7 +150,10 @@
     "images/01-onoda/s3-2.jpg",
     "images/01-onoda/s3-3.jpg"
    ],
-   "old": false
+   "old": false,
+   "sfx": [
+    "heartbeat"
+   ]
   },
   {
    "type": "emoji",
@@ -177,7 +189,10 @@
    "imgs": [
     "images/01-onoda/s4-2.jpg"
    ],
-   "old": false
+   "old": false,
+   "sfx": [
+    "typewriter"
+   ]
   },
   {
    "type": "big",
@@ -214,7 +229,10 @@
    "imgs": [
     "images/01-onoda/s5-1.jpg"
    ],
-   "old": false
+   "old": false,
+   "sfx": [
+    "cheer"
+   ]
   },
   {
    "type": "text",
@@ -250,7 +268,11 @@
     "images/01-onoda/s6-2.jpg",
     "images/01-onoda/s6-3.jpg"
    ],
-   "old": false
+   "old": false,
+   "sfx": [
+    "plane",
+    "paper"
+   ]
   },
   {
    "type": "text",
@@ -283,7 +305,10 @@
    ],
    "img": "images/01-onoda/s7-1.jpg",
    "imgs": [],
-   "old": false
+   "old": false,
+   "sfx": [
+    "heartbeat"
+   ]
   },
   {
    "type": "text",
@@ -318,7 +343,11 @@
     "images/01-onoda/s8-2.jpg",
     "images/01-onoda/s8-3.jpg"
    ],
-   "old": false
+   "old": false,
+   "sfx": [
+    "jungle",
+    "night"
+   ]
   },
   {
    "type": "big",
@@ -352,7 +381,10 @@
     "images/01-onoda/s9-2.jpg",
     "images/01-onoda/s9-3.jpg"
    ],
-   "old": false
+   "old": false,
+   "sfx": [
+    "gunshot"
+   ]
   },
   {
    "type": "text",
@@ -389,7 +421,11 @@
     "images/01-onoda/s10-2.jpg",
     "images/01-onoda/s10-3.jpg"
    ],
-   "old": false
+   "old": false,
+   "sfx": [
+    "crowd",
+    "shutter"
+   ]
   },
   {
    "type": "cta",
@@ -421,11 +457,13 @@
    "imgs": [
     "images/01-onoda/s11-3.jpg"
    ],
-   "old": false
+   "old": false,
+   "sfx": []
   }
  ],
  "title": "ظل يقاتل ٢٩ سنة بحرب خلصت 😳",
  "caption": "ضابط ياباني ظل يقاتل بالغابة ٢٩ سنة لأن ما صدّق إن الحرب خلصت 😳\nقصة حقيقية… إنت چان صدّكت؟ 👇\n\n#قصص #قصص_حقيقية #معلومات #حقائق #غموض #العراق #عراقي #explore #fyp #shorts",
  "brand": "",
- "style": "dynamic"
+ "style": "dynamic",
+ "music": "music_mystery"
 }
