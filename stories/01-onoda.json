@@ -12,9 +12,34 @@
     "خالصة من *٢٩* سنة..."
    ],
    "flash": true,
-   "q": "Lubang Island jungle",
-   "img": "images/01-onoda/1.jpg",
-   "say": "تخيّل… أن تظل تقاتل في حرب انتهت قبل تسعة وعشرين سنة."
+   "q": "dense jungle Philippines",
+   "say": "تخيّل… أن تظل تقاتل في حرب انتهت قبل تسعة وعشرين سنة.",
+   "voice": "out/voice/01-onoda/0.wav",
+   "voiceLead": 0.15,
+   "dur": 5.85,
+   "wordStart": 0.15,
+   "wordGap": 0.45,
+   "img": "images/01-onoda/s0-1.jpg",
+   "imgs": [
+    "images/01-onoda/s0-3.jpg"
+   ],
+   "icons": [
+    [
+     "⚔️",
+     "حرب"
+    ],
+    [
+     "⏳",
+     "٢٩ سنة"
+    ]
+   ],
+   "find": "Hiroo Onoda jungle soldier",
+   "cands": [
+    "images/01-onoda/s0-1.jpg",
+    "images/01-onoda/s0-2.jpg",
+    "images/01-onoda/s0-3.jpg"
+   ],
+   "old": false
   },
   {
    "type": "text",
@@ -22,7 +47,32 @@
     "...وإنت *ما تدري!*"
    ],
    "shake": true,
-   "say": "وأنت لا تدري أبداً."
+   "say": "وأنت لا تدري أبداً.",
+   "voice": "out/voice/01-onoda/1.wav",
+   "voiceLead": 0.15,
+   "dur": 2.86,
+   "wordStart": 0.15,
+   "wordGap": 0.45,
+   "q": "jungle at night fog",
+   "icons": [
+    [
+     "🤷‍♂️",
+     "ما يدري"
+    ],
+    [
+     "❓",
+     ""
+    ]
+   ],
+   "find": "Hiroo Onoda Lubang island hiding",
+   "cands": [
+    "images/01-onoda/s1-1.jpg",
+    "images/01-onoda/s1-2.jpg",
+    "images/01-onoda/s1-3.jpg"
+   ],
+   "img": "images/01-onoda/s1-2.jpg",
+   "imgs": [],
+   "old": false
   },
   {
    "type": "big",
@@ -32,19 +82,66 @@
     "دزّوا ضابط اسمه *هيرو أونودا*",
     "لجزيرة بالفلبين"
    ],
-   "say": "في عام ألف وتسعمئة وأربعة وأربعين، أُرسل ضابط ياباني اسمه هيرو أونودا إلى جزيرة صغيرة في الفلبين."
+   "say": "في عام ألف وتسعمئة وأربعة وأربعين، أُرسل ضابط ياباني اسمه هيرو أونودا إلى جزيرة صغيرة في الفلبين.",
+   "voice": "out/voice/01-onoda/2.wav",
+   "voiceLead": 0.15,
+   "dur": 10.3,
+   "wordStart": 0.15,
+   "wordGap": 0.45,
+   "q": "Imperial Japanese Army soldiers 1944",
+   "img": "images/01-onoda/s2-1.jpg",
+   "imgs": [
+    "images/01-onoda/s8-3.jpg"
+   ],
+   "icons": [
+    [
+     "🇯🇵",
+     "ضابط ياباني"
+    ],
+    [
+     "🇵🇭",
+     "جزيرة بالفلبين"
+    ]
+   ],
+   "find": "Hiroo Onoda young officer 1944",
+   "cands": [
+    "images/01-onoda/s2-1.jpg",
+    "images/01-onoda/s2-2.jpg",
+    "images/01-onoda/s2-3.jpg"
+   ],
+   "old": false
   },
   {
    "type": "text",
-   "imgStyle": "card",
    "tilt": -4,
    "lines": [
     "هذا هو *أونودا*"
    ],
    "q": "Hiroo Onoda young",
-   "img": "images/01-onoda/2.jpg",
    "file": "File:Hiroo Onoda young.jpg",
-   "say": "هذا هو أونودا."
+   "say": "هذا هو أونودا.",
+   "voice": "out/voice/01-onoda/3.wav",
+   "voiceLead": 0.15,
+   "dur": 2.15,
+   "wordStart": 0.15,
+   "wordGap": 0.441,
+   "img": "images/01-onoda/s2-2.jpg",
+   "imgs": [
+    "images/01-onoda/s7-3.jpg"
+   ],
+   "icons": [
+    [
+     "🪖",
+     "أونودا"
+    ]
+   ],
+   "find": "Hiroo Onoda portrait",
+   "cands": [
+    "images/01-onoda/s3-1.jpg",
+    "images/01-onoda/s3-2.jpg",
+    "images/01-onoda/s3-3.jpg"
+   ],
+   "old": false
   },
   {
    "type": "emoji",
@@ -53,7 +150,34 @@
     "والأمر كان واضح:",
     "*لا تستسلم أبداً*"
    ],
-   "say": "وكانت أوامره واضحة: لا تستسلم أبداً… مهما حدث."
+   "say": "وكانت أوامره واضحة: لا تستسلم أبداً… مهما حدث.",
+   "voice": "out/voice/01-onoda/4.wav",
+   "voiceLead": 0.15,
+   "dur": 6.31,
+   "wordStart": 0.15,
+   "wordGap": 0.45,
+   "q": "Japanese soldier World War II portrait",
+   "icons": [
+    [
+     "📜",
+     "الأوامر"
+    ],
+    [
+     "🏳️",
+     "ممنوع الاستسلام"
+    ]
+   ],
+   "find": "Japanese imperial army soldiers WWII",
+   "cands": [
+    "images/01-onoda/s4-1.jpg",
+    "images/01-onoda/s4-2.jpg",
+    "images/01-onoda/s4-3.jpg"
+   ],
+   "img": "images/01-onoda/s4-1.jpg",
+   "imgs": [
+    "images/01-onoda/s4-2.jpg"
+   ],
+   "old": false
   },
   {
    "type": "big",
@@ -63,19 +187,70 @@
     "بس هو... *ما صدّق*"
    ],
    "flash": true,
-   "say": "انتهت الحرب العالمية الثانية… لكنه لم يصدّق."
+   "say": "انتهت الحرب العالمية الثانية… لكنه لم يصدّق.",
+   "voice": "out/voice/01-onoda/5.wav",
+   "voiceLead": 0.15,
+   "dur": 5.38,
+   "wordStart": 0.15,
+   "wordGap": 0.45,
+   "q": "Japanese surrender USS Missouri 1945",
+   "icons": [
+    [
+     "🕊️",
+     "الحرب خلصت"
+    ],
+    [
+     "🙅‍♂️",
+     "ما صدّق"
+    ]
+   ],
+   "find": "Japan surrender 1945 USS Missouri",
+   "cands": [
+    "images/01-onoda/s5-1.jpg",
+    "images/01-onoda/s5-2.jpg",
+    "images/01-onoda/s5-3.jpg"
+   ],
+   "img": "images/01-onoda/s5-3.jpg",
+   "imgs": [
+    "images/01-onoda/s5-1.jpg"
+   ],
+   "old": false
   },
   {
    "type": "text",
-   "img": "images/01-onoda/3.jpg",
    "pan": -1,
    "lines": [
     "رمولَه أوراق من الطيارات",
     "تكول: *الحرب خلصت!*"
    ],
    "q": "Leaflet bombing World War II",
-   "src": "commons",
-   "say": "رمت الطائرات أوراقاً فوق الغابة، مكتوب فيها: الحرب انتهت!"
+   "say": "رمت الطائرات أوراقاً فوق الغابة، مكتوب فيها: الحرب انتهت!",
+   "voice": "out/voice/01-onoda/6.wav",
+   "voiceLead": 0.15,
+   "dur": 7.1,
+   "wordStart": 0.15,
+   "wordGap": 0.45,
+   "img": "images/01-onoda/s6-1.jpg",
+   "imgs": [
+    "images/01-onoda/s6-3.jpg"
+   ],
+   "icons": [
+    [
+     "✈️",
+     "طيارات"
+    ],
+    [
+     "📄",
+     "أوراق"
+    ]
+   ],
+   "find": "leaflets dropped from plane World War II Japanese",
+   "cands": [
+    "images/01-onoda/s6-1.jpg",
+    "images/01-onoda/s6-2.jpg",
+    "images/01-onoda/s6-3.jpg"
+   ],
+   "old": false
   },
   {
    "type": "text",
@@ -83,17 +258,67 @@
     "كال: هاي *خدعة*",
     "من العدو 🤨"
    ],
-   "say": "لكنه قال: هذه خدعة من العدو."
+   "say": "لكنه قال: هذه خدعة من العدو.",
+   "voice": "out/voice/01-onoda/7.wav",
+   "voiceLead": 0.15,
+   "dur": 4.14,
+   "wordStart": 0.15,
+   "wordGap": 0.45,
+   "q": "Japanese soldiers jungle Philippines 1944",
+   "icons": [
+    [
+     "🤨",
+     "خدعة"
+    ],
+    [
+     "🎭",
+     "من العدو"
+    ]
+   ],
+   "find": "Hiroo Onoda rifle uniform",
+   "cands": [
+    "images/01-onoda/s7-1.jpg",
+    "images/01-onoda/s7-2.jpg",
+    "images/01-onoda/s7-3.jpg"
+   ],
+   "img": "images/01-onoda/s7-1.jpg",
+   "imgs": [],
+   "old": false
   },
   {
    "type": "text",
-   "img": "images/01-onoda/4.jpg",
    "lines": [
     "وظل بالغابة...",
     "سنة ورا سنة"
    ],
    "q": "tropical rainforest Philippines",
-   "say": "وبقي في الغابة… سنة بعد سنة."
+   "say": "وبقي في الغابة… سنة بعد سنة.",
+   "voice": "out/voice/01-onoda/8.wav",
+   "voiceLead": 0.15,
+   "dur": 3.62,
+   "wordStart": 0.15,
+   "wordGap": 0.45,
+   "img": "images/01-onoda/11.jpg",
+   "imgs": [
+    "images/01-onoda/1.jpg"
+   ],
+   "icons": [
+    [
+     "📅",
+     "سنة ورا سنة"
+    ],
+    [
+     "🇵🇭",
+     "بغابات الفلبين"
+    ]
+   ],
+   "find": "Lubang island Philippines jungle",
+   "cands": [
+    "images/01-onoda/s8-1.jpg",
+    "images/01-onoda/s8-2.jpg",
+    "images/01-onoda/s8-3.jpg"
+   ],
+   "old": false
   },
   {
    "type": "big",
@@ -104,12 +329,33 @@
     "*٢٩* سنة وهو يقاتل وحده"
    ],
    "shake": true,
-   "say": "تسعة وعشرون عاماً… وهو يقاتل وحده."
+   "say": "تسعة وعشرون عاماً… وهو يقاتل وحده.",
+   "voice": "out/voice/01-onoda/9.wav",
+   "voiceLead": 0.15,
+   "dur": 5.11,
+   "wordStart": 0.15,
+   "wordGap": 0.45,
+   "q": "Lubang Island",
+   "img": "images/01-onoda/s9-3.jpg",
+   "imgs": [
+    "images/01-onoda/s9-2.jpg"
+   ],
+   "icons": [
+    [
+     "⚔️",
+     "وحده"
+    ]
+   ],
+   "find": "Hiroo Onoda 1974",
+   "cands": [
+    "images/01-onoda/s9-1.jpg",
+    "images/01-onoda/s9-2.jpg",
+    "images/01-onoda/s9-3.jpg"
+   ],
+   "old": false
   },
   {
    "type": "text",
-   "img": "images/01-onoda/5.jpg",
-   "imgStyle": "card",
    "tilt": 3,
    "lines": [
     "*1974*: جابوله الضابط القديم مالته",
@@ -117,7 +363,33 @@
    ],
    "flash": true,
    "q": "Onoda surrender 1974 Marcos",
-   "say": "وفي عام ألف وتسعمئة وأربعة وسبعين، جاءه قائده القديم بنفسه… وأمره أن يسلّم سلاحه. وعندها فقط… استسلم."
+   "say": "وفي عام ألف وتسعمئة وأربعة وسبعين، جاءه قائده القديم بنفسه… وأمره أن يسلّم سلاحه. وعندها فقط… استسلم.",
+   "voice": "out/voice/01-onoda/10.wav",
+   "voiceLead": 0.15,
+   "dur": 11.2,
+   "wordStart": 0.15,
+   "wordGap": 0.45,
+   "img": "images/01-onoda/s10-2.jpg",
+   "imgs": [
+    "images/01-onoda/s10-1.jpg"
+   ],
+   "icons": [
+    [
+     "🎖️",
+     "قائده القديم"
+    ],
+    [
+     "🏳️",
+     "سلّم سلاحه"
+    ]
+   ],
+   "find": "Hiroo Onoda surrender Marcos 1974 sword",
+   "cands": [
+    "images/01-onoda/s10-1.jpg",
+    "images/01-onoda/s10-2.jpg",
+    "images/01-onoda/s10-3.jpg"
+   ],
+   "old": false
   },
   {
    "type": "cta",
@@ -126,10 +398,34 @@
     "چان *صدّكت* لو لا؟",
     "اكتبلي بالتعليقات"
    ],
-   "say": "لو كنت مكانه… هل كنت ستصدّق؟ اكتب لي في التعليقات."
+   "say": "لو كنت مكانه… هل كنت ستصدّق؟ اكتب لي في التعليقات.",
+   "voice": "out/voice/01-onoda/11.wav",
+   "voiceLead": 0.15,
+   "dur": 4.48,
+   "wordStart": 0.15,
+   "wordGap": 0.354,
+   "q": "Hiroo Onoda 1974",
+   "icons": [
+    [
+     "💬",
+     "اكتبلي"
+    ]
+   ],
+   "find": "Hiroo Onoda returns Japan 1974",
+   "cands": [
+    "images/01-onoda/s11-1.jpg",
+    "images/01-onoda/s11-2.jpg",
+    "images/01-onoda/s11-3.jpg"
+   ],
+   "img": "images/01-onoda/s11-1.jpg",
+   "imgs": [
+    "images/01-onoda/s11-3.jpg"
+   ],
+   "old": false
   }
  ],
  "title": "ظل يقاتل ٢٩ سنة بحرب خلصت 😳",
  "caption": "ضابط ياباني ظل يقاتل بالغابة ٢٩ سنة لأن ما صدّق إن الحرب خلصت 😳\nقصة حقيقية… إنت چان صدّكت؟ 👇\n\n#قصص #قصص_حقيقية #معلومات #حقائق #غموض #العراق #عراقي #explore #fyp #shorts",
- "brand": ""
+ "brand": "",
+ "style": "dynamic"
 }

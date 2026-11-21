@@ -37,6 +37,22 @@ html,body{width:1080px;height:1920px;overflow:hidden;background:#000}
 .scene.withimg{justify-content:flex-end;padding-bottom:40px}
 .scene.withcard{justify-content:flex-end;padding-bottom:0;top:720px}
 #flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none}
+.cinema #stage{top:auto;bottom:250px;height:640px}
+.cinema .scene{justify-content:flex-end;gap:24px}
+.cinema .line{font-size:var(--fs,70px);line-height:1.4;paint-order:stroke fill;-webkit-text-stroke:10px rgba(0,0,0,.85);text-shadow:0 4px 24px rgba(0,0,0,.95)}
+.cinema .cta-arrow{font-size:90px}
+.cinema .sub{display:none;max-width:900px}
+.cinema #parts{display:none}
+/* ---- dynamic: narration + beats that change every <=2.5 s ---- */
+.dyn #stage{top:330px;height:1000px}
+#subs{position:absolute;left:60px;right:60px;bottom:260px;height:260px;display:flex;align-items:flex-end;justify-content:center;text-align:center}
+#subs .sub{position:absolute;bottom:0;left:0;right:0;display:none;font-weight:900;font-size:72px;line-height:1.4;paint-order:stroke fill;-webkit-text-stroke:10px rgba(0,0,0,.9);text-shadow:0 4px 24px rgba(0,0,0,.95)}
+#subs .sub .k{color:var(--accent)}
+.kw{font-family:"Lalezar","Cairo";font-size:150px;line-height:1.15;color:#F4EFE4;text-shadow:0 10px 50px rgba(0,0,0,.9)}
+.kw .hl{color:var(--accent)}
+.dcard{position:absolute;left:50%;top:430px;width:720px;height:720px;margin-left:-360px;border:16px solid #f3ede0;border-bottom-width:70px;border-radius:6px;box-shadow:0 40px 90px rgba(0,0,0,.85);overflow:hidden;opacity:0;background:#222}
+.dcard img{width:100%;height:100%;object-fit:cover;filter:sepia(.25) contrast(1.05)}
+
 </style>
 </head>
 <body>
@@ -48,6 +64,7 @@ html,body{width:1080px;height:1920px;overflow:hidden;background:#000}
   <canvas id="grain" width="540" height="960" style="width:1080px;height:1920px;opacity:.10;mix-blend-mode:overlay"></canvas>
   <div id="top"><div class="pill" id="tag">قصة حقيقية</div><div id="prog"><i></i></div></div>
   <div id="stage"></div>
+  <div id="subs"></div>
   <div id="brand"></div>
   <div id="flash"></div>
 </div>
@@ -81,6 +98,20 @@ window.TOTAL = acc;
 window.CUTS = scenes.map(s=>s.start);
 
 // ---------- build DOM ----------
+const CINEMA = S.style === 'cinema';
+if (CINEMA) {
+  document.getElementById('root').classList.add('cinema');
+  const own = scenes.map(sc => sc.img);
+  scenes.forEach((sc, i) => {
+    delete sc.imgStyle;                       // no framed cards: always full screen
+    if (!sc.img) {                            // never an empty screen: borrow the nearest photo
+      for (let d = 1; d < scenes.length && !sc.img; d++) sc.img = own[i - d] || own[i + d];
+      sc.reused = true;
+    }
+    sc.pan = sc.pan || (i % 2 ? -1 : 1);
+    sc.zoomOut = i % 3 === 2;                 // vary the camera move
+  });
+}
 const stage = document.getElementById('stage');
 function wordsHTML(line){
   // *word* => highlighted
@@ -93,10 +124,23 @@ function wordsHTML(line){
 for(const sc of scenes){
   const el=document.createElement('div'); el.className='scene';
   let html='';
-  if(sc.type==='big') html+=`<div class="big" data-big>${sc.big}</div>${sc.label?`<div class="biglabel">${sc.label}</div>`:''}`;
-  if(sc.type==='emoji') html+=`<div class="emoji" data-emoji>${sc.emoji}</div>`;
-  if(sc.lines&&sc.lines.length){
-    const fs = sc.fs || (sc.img&&sc.imgStyle==='card'?70:0) || (sc.type==='hook'?104:(sc.type==='big'||sc.type==='emoji'?72:88));
+  if(sc.type==='big' && !CINEMA) html+=`<div class="big" data-big>${sc.big}</div>${sc.label?`<div class="biglabel">${sc.label}</div>`:''}`;
+  if(sc.type==='emoji' && !CINEMA) html+=`<div class="emoji" data-emoji>${sc.emoji}</div>`;
+  if(CINEMA && sc.say){
+    const ws = sc.say.split(/\s+/).filter(Boolean), chunks = [];
+    for (let k = 0; k < ws.length;) {            // 2-4 words, break after punctuation
+      let n = 0, c = [];
+      while (k < ws.length && n < 4) { c.push(ws[k]); n++; if (/[.،,؟?!…:]$/.test(ws[k++]) && n >= 2) break; }
+      chunks.push(c);
+    }
+    const lead = sc.voiceLead || 0.25, speak = Math.max(1, sc.dur - lead - 0.35);
+    const total = chunks.reduce((a, c) => a + c.join(' ').length, 0);
+    let t0 = lead;
+    sc.chunks = chunks.map(c => { const d = speak * c.join(' ').length / total; const o = {s: t0, e: t0 + d}; t0 += d; return o; });
+    html += `<div class="lines" style="--fs:${sc.type==='hook'?84:74}px">` +
+      chunks.map(c => `<div class="line sub">${c.map(w => `<span class="w">${w}</span>`).join('<span class="w"> </span>')}</div>`).join('') + `</div>`;
+  } else if(sc.lines&&sc.lines.length){
+    const fs = sc.fs || (CINEMA ? (sc.type==='hook'?80:68) : 0) || (sc.img&&sc.imgStyle==='card'?70:0) || (sc.type==='hook'?104:(sc.type==='big'||sc.type==='emoji'?72:88));
     html+=`<div class="lines" style="--fs:${fs}px">${sc.lines.map(l=>`<div class="line">${wordsHTML(l)}</div>`).join('')}</div>`;
   }
   if(sc.type==='cta') html+=`<div class="cta-arrow" data-arrow>⬇</div>`;
@@ -107,6 +151,113 @@ for(const sc of scenes){
     else { const ph=document.createElement('div'); ph.className='ph'+(sc.old!==false?' old':''); ph.innerHTML=`<img src="${sc.img}">`; document.getElementById('photos').appendChild(ph); sc.ph=ph; el.classList.add('withimg'); }
   }
   sc.words=[...el.querySelectorAll('.w')].filter(w=>w.textContent.trim());
+  sc.subs=[...el.querySelectorAll('.sub')];
+}
+
+
+// ================= DYNAMIC MODE =================
+// Narration + subtitles; the picture changes every <= BEAT seconds, but ONLY with things that
+// belong to what the narrator is saying in that scene: the scene's own photo (full / framed)
+// or the scene's own motion graphics (its number, emoji, keyword, and its "icons").
+const DYN = S.style === 'dynamic';
+const BEAT = 2.4;
+let beats = [];
+if (DYN) {
+  const root = document.getElementById('root'); root.classList.add('dyn');
+  const photos = document.getElementById('photos'), subs = document.getElementById('subs');
+  let gi = 0;
+  scenes.forEach((sc, i) => {
+    sc.el.remove();
+    if (sc.ph) { sc.ph.remove(); sc.ph = null; }
+    if (sc.card) { sc.card.remove(); sc.card = null; }
+    // motion variants of this scene
+    const hlw = ((sc.lines || []).join(' ').match(/\*[^*]+\*/g) || []).map(w => w.replace(/\*/g, ''));
+    const main = sc.type === 'big' ? `<div class="big" data-big>${sc.big}</div>${sc.label ? `<div class="biglabel">${sc.label}</div>` : ''}`
+      : sc.type === 'emoji' ? `<div class="emoji" data-emoji>${sc.emoji}</div>`
+      : `<div class="lines" style="--fs:${sc.type === 'hook' ? 104 : 88}px">${(sc.lines || []).map(l => `<div class="line">${wordsHTML(l)}</div>`).join('')}</div>` + (sc.type === 'cta' ? `<div class="cta-arrow" data-arrow>⬇</div>` : '');
+    const variants = [main];
+    for (const ic of (sc.icons || [])) {                 // [emoji, caption] pairs that show what is said
+      const [em, cap] = Array.isArray(ic) ? ic : [ic, ''];
+      variants.push(`<div class="emoji" data-emoji>${em}</div>${cap ? `<div class="kw"><span class="w hl">${cap}</span></div>` : ''}`);
+    }
+    if (hlw.length && sc.type !== 'big') variants.push(`<div class="kw">${hlw.map(w => `<span class="w hl">${w}</span>`).join('<br>')}</div>`);
+    // subtitles = the narration, 2-4 words at a time
+    if (sc.say) {
+      const ws = sc.say.split(/\s+/).filter(Boolean), chunks = [];
+      for (let k = 0; k < ws.length;) { let n = 0, c = [];
+        while (k < ws.length && n < 4) { c.push(ws[k]); n++; if (/[.،,؟?!…:]$/.test(ws[k++]) && n >= 2) break; }
+        chunks.push(c); }
+      const lead = sc.voiceLead || 0.25, speak = Math.max(1, sc.dur - lead - 0.35);
+      const tot = chunks.reduce((x, c) => x + c.join(' ').length, 0); let t0 = lead;
+      sc.chunks = chunks.map(c => { const d = speak * c.join(' ').length / tot; const o = {s: t0, e: t0 + d}; t0 += d; return o; });
+      sc.subs = chunks.map(c => { const d = document.createElement('div'); d.className = 'sub'; d.textContent = c.join(' '); subs.appendChild(d); return d; });
+    }
+    // shots: alternate photo shots (only this scene's photo) and this scene's motion variants
+    const n = Math.max(1, Math.ceil(sc.dur / BEAT)), len = sc.dur / n;
+    const shots = [];
+    const pics = [].concat(sc.img ? [sc.img] : [], sc.imgs || []);
+    let pk = 0, vk = 0;
+    for (let b = 0; b < n; b++) {
+      const wantPhoto = pics.length && (sc.type === 'big' || sc.type === 'emoji' ? b % 2 === 1 : b % 2 === 0);
+      if (wantPhoto) { shots.push({kind: pk % 2 ? 'card' : 'photo', src: pics[pk % pics.length]}); pk++; }
+      else { shots.push({kind: 'motion', html: variants[vk % variants.length]}); vk++; }
+    }
+    shots.forEach((sh, b) => {
+      const bt = {sc, s: sc.start + b * len, e: sc.start + (b + 1) * len, kind: sh.kind, g: gi++};
+      const r = rng(bt.g * 97 + (S.seed || 7));
+      if (sh.kind === 'motion') {
+        const el = document.createElement('div'); el.className = 'scene'; el.innerHTML = sh.html + `<div class="ring" data-ring></div>`;
+        el.style.opacity = 0; stage.appendChild(el); bt.el = el;
+        bt.words = [...el.querySelectorAll('.w')].filter(w => w.textContent.trim());
+      } else {
+        const d = document.createElement('div');
+        if (sh.kind === 'photo') { d.className = 'ph' + (sc.old !== false ? ' old' : ''); photos.appendChild(d); }
+        else { d.className = 'dcard'; root.insertBefore(d, stage); }
+        d.innerHTML = `<img src="${sh.src}">`; bt.d = d;
+        bt.z0 = 1.12 + r() * .12; bt.dz = (r() > .5 ? 1 : -1) * (.10 + r() * .08);
+        bt.px = (r() * 2 - 1) * 70; bt.py = (r() * 2 - 1) * 60; bt.rot = (r() * 2 - 1) * 2.5;
+        bt.ox = 30 + r() * 40; bt.oy = 25 + r() * 50;
+      }
+      beats.push(bt);
+    });
+  });
+}
+function animDyn(t) {
+  for (const bt of beats) {
+    const on = t >= bt.s - .12 && t < bt.e + .12, u = clamp((t - bt.s) / (bt.e - bt.s));
+    const a = Math.min(ease.out(prog(t, bt.s - .12, .24)), 1 - ease.out(prog(t, bt.e - .12, .24)));
+    if (bt.kind === 'photo') {
+      bt.d.style.opacity = on ? a : 0; if (!on) continue;
+      const punch = .10 * (1 - ease.out(prog(t, bt.s - .12, .45)));
+      bt.d.style.transformOrigin = `${bt.ox}% ${bt.oy}%`;
+      bt.d.style.transform = `scale(${bt.z0 + bt.dz * u + punch}) translate(${bt.px * (u - .5)}px,${bt.py * (u - .5)}px) rotate(${bt.rot * (u - .5)}deg)`;
+    } else if (bt.kind === 'card') {
+      bt.d.style.opacity = on ? a : 0; if (!on) continue;
+      const p = prog(t, bt.s - .05, .55), e = ease.back(p);
+      bt.d.style.transform = `translateY(${(1 - e) * 260}px) rotate(${(1 - e) * -14 + bt.rot * 2 + Math.sin(t * 1.3) * 1.2}deg) scale(${.95 + .08 * u})`;
+    } else {
+      const el = bt.el, vis = t >= bt.s && t < bt.e + .15, lt = t - bt.s;
+      const inA = ease.out(prog(lt, 0, .3)), outA = 1 - ease.inOut(prog(t, bt.e - .12, .27));
+      el.style.opacity = vis ? Math.min(inA, outA) : 0; if (!vis) continue;
+      el.style.transform = `translateY(${(1 - inA) * 60}px) scale(${1 + (1 - outA) * .08 + .03 * u})`;
+      bt.words.forEach((w, i) => { const p = prog(lt, .05 + i * .09, .3), e = ease.back(p);
+        w.style.opacity = clamp(p * 1.6); w.style.transform = `translateY(${(1 - e) * 40}px) scale(${.6 + .4 * e})`; w.style.filter = `blur(${(1 - clamp(p * 1.4)) * 10}px)`; });
+      const big = el.querySelector('[data-big]'), sc = bt.sc;
+      if (big) { const p = prog(lt, .05, .5), e = ease.back(p); big.style.transform = `scale(${.3 + .7 * e + .025 * Math.sin(lt * 5) * (p >= 1)})`; big.style.opacity = clamp(p * 2);
+        if (sc.count) big.textContent = (sc.prefix || '') + Math.round(sc.count * ease.out(prog(lt, .05, 1.1))) + (sc.suffix || ''); }
+      const em = el.querySelector('[data-emoji]');
+      if (em) { const p = prog(lt, .05, .5), e = ease.back(p); em.style.transform = `scale(${.2 + .8 * e}) rotate(${(1 - e) * -25 + Math.sin(lt * 2.2) * 5}deg) translateY(${Math.sin(lt * 2) * 12}px)`; em.style.opacity = clamp(p * 2); }
+      const ring = el.querySelector('[data-ring]');
+      if (ring) { const p = prog(lt, .15, 1.1); const s2 = 200 + p * 900; ring.style.width = ring.style.height = s2 + 'px'; ring.style.marginLeft = ring.style.marginTop = (-s2 / 2) + 'px'; ring.style.opacity = (1 - p) * .6; ring.style.top = '40%'; }
+      const ar = el.querySelector('[data-arrow]');
+      if (ar) { ar.style.transform = `translateY(${Math.abs(Math.sin(lt * 3.5)) * 30}px)`; ar.style.opacity = clamp(prog(lt, .4, .3)); }
+    }
+  }
+  for (const sc of scenes) if (sc.subs) sc.subs.forEach((d, i) => { const c = sc.chunks[i], l2 = t - sc.start, lastc = i === sc.chunks.length - 1;
+    const on = l2 >= c.s && (l2 < c.e || (lastc && l2 < sc.dur)); const p = prog(l2, c.s, .16), e = ease.back(p);
+    d.style.display = on ? 'block' : 'none'; d.style.transform = `scale(${.85 + .15 * e})`; d.style.opacity = clamp(p * 2); });
+  let f = 0; for (const sc of scenes) { const lt = t - sc.start; if (lt >= 0 && lt < .18 && sc.start > 0) f = Math.max(f, (1 - lt / .18) * .25); }
+  return f;
 }
 
 // ---------- background ----------
@@ -143,7 +294,9 @@ function animScene(sc,t){
     const a=Math.min(ease.out(prog(lt,-.3,.6)), 1-ease.inOut(prog(lt,sc.dur-.3,.6)));
     sc.ph.style.opacity = (lt>-.3&&lt<sc.dur+.3)?a:0;
     const k=clamp(lt/(sc.dur+.3)); const dir=(sc.pan||1);
-    sc.ph.style.transform=`scale(${1.08+0.14*k}) translate(${dir*(-30+60*k)}px,${-20*k}px)`;
+    const z = sc.zoomOut ? 1.24-0.14*k : 1.08+0.14*k;
+    const r = sc.reused ? 1.12 : 1;           // a borrowed photo is framed tighter so it looks new
+    sc.ph.style.transform=`scale(${z*r}) translate(${dir*(-30+60*k)}px,${(sc.reused?40:0)-20*k}px)`;
   }
   if(sc.card){
     const p=prog(lt,0,.7), e=ease.back(p), o=1-ease.inOut(prog(lt,sc.dur-.35,.35));
@@ -153,6 +306,14 @@ function animScene(sc,t){
   if(!vis) return;
   const exitShift = (1-outA)*-60;
   el.style.transform = `translateY(${(1-inA)*50+exitShift}px) scale(${1+(1-outA)*.04})`;
+  if(sc.chunks){                                  // karaoke-style subtitle chunks
+    sc.subs.forEach((d,i)=>{ const c=sc.chunks[i]; const last=i===sc.chunks.length-1;
+      const on = lt>=c.s && (lt<c.e || last); const p=prog(lt,c.s,.18), e=ease.back(p);
+      d.style.display = on ? 'block' : 'none';
+      d.style.transform=`scale(${.85+.15*e})`; d.style.opacity=clamp(p*2); });
+    const ar=el.querySelector('[data-arrow]'); if(ar){ ar.style.transform=`translateY(${Math.abs(Math.sin(lt*3.5))*30}px)`; ar.style.opacity=clamp(prog(lt,1.2,.4)); }
+    return;
+  }
   const wStart = sc.wordStart ?? ((sc.type==='big'||sc.type==='emoji') ? 1.0 : 0.25);
   sc.words.forEach((w,i)=>{
     const p = prog(lt, wStart+i*sc.gap, .32);
@@ -181,10 +342,11 @@ function animScene(sc,t){
 
 window.seek = function(t){
   drawBG(t);
-  for(const sc of scenes) animScene(sc,t);
+  let f=0;
+  if (DYN) f = animDyn(t); else for(const sc of scenes) animScene(sc,t);
   document.querySelector('#prog i').style.width = (clamp(t/TOTAL)*100)+'%';
   // flash on scenes flagged
-  let f=0; for(const sc of scenes){ if(sc.flash){ const lt=t-sc.start; if(lt>=0&&lt<.35) f=Math.max(f,(1-lt/.35)*.55);} }
+  for(const sc of scenes){ if(sc.flash){ const lt=t-sc.start; if(lt>=0&&lt<.35) f=Math.max(f,(1-lt/.35)*.55);} }
   document.getElementById('flash').style.opacity=f;
 };
 window.READY = document.fonts.ready.then(()=>new Promise(r=>setTimeout(r,300)));
