@@ -1,8 +1,8 @@
 // usage: node audio.js stories/01-onoda.json [video.mp4]
 // Sound design for a story video (the video stream is copied, nothing is re-rendered):
 //   narration (each scene's voice at its cut)  +  a real music bed from sfx/music_*  +
-//   NO whoosh/swish/impact/riser (the owner finds them annoying); a camera click on framed photos,
-//   on hooks and big numbers, and each scene's own effects ("sfx": ["plane", "crowd", ...]).
+//   NO whoosh/swish/impact/riser (the owner finds them annoying); a soft camera click on framed photos
+//   and each scene's own effects ("sfx": ["plane", "crowd", ...]).
 // Every sound is a CC0 file from sfx/<category>/ (see sfx/CREDITS.txt). Loudness -14 LUFS.
 const { chromium } = require('playwright');
 const { execFileSync } = require('child_process');
