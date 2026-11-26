@@ -1,7 +1,7 @@
 // usage: node audio.js stories/01-onoda.json [video.mp4]
 // Sound design for a story video (the video stream is copied, nothing is re-rendered):
 //   narration (each scene's voice at its cut)  +  a real music bed from sfx/music_*  +
-//   a different whoosh/swish on every shot change, a camera click on framed photos, an impact
+//   NO whoosh/swish/impact/riser (the owner finds them annoying); a camera click on framed photos,
 //   on hooks and big numbers, and each scene's own effects ("sfx": ["plane", "crowd", ...]).
 // Every sound is a CC0 file from sfx/<category>/ (see sfx/CREDITS.txt). Loudness -14 LUFS.
 const { chromium } = require('playwright');
@@ -63,18 +63,14 @@ function addAudio(video, total, cuts, out, scenes = [], beats = [], story = {}) 
     if (sc.voice && fs.existsSync(path.join(__dirname, sc.voice)))
       place(add(path.join(__dirname, sc.voice)), cuts[s] + (sc.voiceLead || 0), 1.9);
   });
-  // shot changes: alternate whoosh / swish, camera click for framed photos
+  // framed photos: a soft camera click
   beats.forEach((b, j) => {
     if (b.t < 0.05) return;
-    const f = pick(j % 2 ? 'swish' : 'whoosh');
-    if (f) place(add(f), b.t - 0.18, 0.32, ',atrim=0:1.6,afade=t=out:st=1.1:d=0.5');
     if (b.kind === 'card') { const c = pick('shutter'); if (c) place(add(c), b.t + 0.05, 0.45, ',atrim=0:1'); }
   });
-  // per scene: impact on hook / numbers, plus the scene's own effects
+  // per scene: the scene's own effects
   scenes.forEach((sc, s) => {
     const st = cuts[s], dur = sc.dur || 3;
-    if (sc.type === 'hook' || sc.type === 'big') { const f = pick('impact'); if (f) place(add(f), st, 0.5, ',atrim=0:3,afade=t=out:st=2:d=1'); }
-    if (sc.type === 'cta') { const f = pick('riser'); if (f) place(add(f), Math.max(0, st - 1.5), 0.3, ',atrim=0:3,afade=t=out:st=2.2:d=0.8'); }
     for (const cat of sc.sfx || []) {
       const f = pick(cat); if (!f) continue;
       const len = Math.min(dur + 0.6, 12).toFixed(2);
