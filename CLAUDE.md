@@ -52,6 +52,10 @@ everything. Talk to the owner in **Iraqi Arabic**, short and friendly.
 3. If nothing is approved that day, do nothing else.
 
 ## Rules
+- **Sound: never use whoosh / swish / impact / boom / riser transition effects** in any video
+  (stories, promos, edits): the owner finds them very annoying. Use music + voice + only quiet,
+  on-topic ambience (sfx/<topic>). Do not re-edit a delivered video because of a note like this
+  unless the owner asks; apply it to the next videos.
 - Never post or copy other creators' videos. Photos: Commons / CC licences, or our own AI shots
   from Flow/Gemini for atmosphere only (never fake photos of real people or events).
 - Keep `ready/` small: delete videos whose time passed more than 7 days ago (keep their index entries).
